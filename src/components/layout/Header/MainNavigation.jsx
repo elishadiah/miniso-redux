@@ -1,8 +1,8 @@
+import { Container } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import classes from "./MainNavigation.module.css";
 import Drawer from "../../../Drawer/Drawer";
-import { Container } from "@mui/material";
+import classes from "./MainNavigation.module.css";
 
 const MainNavigation = ({ item }) => {
   const cat = "04";
@@ -35,7 +35,10 @@ const MainNavigation = ({ item }) => {
               <Link to={`/productoslista/${cat}`}>Comprar ahora</Link>
             </li>
             <li>
-              <Link to='/contactanos'>Contáctanos</Link>
+              <Link to="/viewstores">Tiendas</Link>
+            </li>
+            <li>
+              <Link to="/contactanos">Contáctanos</Link>
             </li>
           </ul>
         </nav>
