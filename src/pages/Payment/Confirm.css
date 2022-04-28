@@ -1,0 +1,64 @@
+@font-face {
+  font-family: 'Avenir-Medium';
+  src: url('../../assets/font/Avenir-Medium.otf');
+}
+
+.btn1:enabled {
+  padding: 0.5rem;
+  box-sizing: border-box;
+  font-family: "Avenir-Medium";
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1rem;
+  margin: 1rem;
+  background-color: #3f3c4f;
+  color: #ffffff;
+  border: 2px solid #3f3c4f;
+  transition: background 200ms ease-in, color 200ms ease-in;
+}
+
+.btn1:enabled:hover {
+  background-color: #e71425;
+  border: 2px solid #e71425;
+  color: #ffffff;
+  cursor: pointer;
+  transition: border 185ms ease-in, color 200ms ease-in;
+  transition: background 60ms ease-in, color 200ms ease-in;
+}
+
+.btn1:disabled {
+  padding: 0.5rem;
+  box-sizing: border-box;
+  font-family: "Avenir-Medium";
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1rem;
+  margin: 1rem;
+  background-color: #bebebe;
+  color: #ffffff;
+  border: 2px solid #b4b4b4;
+  transition: background 200ms ease-in, color 200ms ease-in;
+}
+
+.btn2 {
+  padding: 0.5rem;
+  box-sizing: border-box;
+  font-family: "Avenir-Medium";
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1rem;
+  margin: 1rem;
+  background-color: #3f3c4f;
+  color: #ffffff;
+  border: 2px solid #3f3c4f;
+  transition: background 200ms ease-in, color 200ms ease-in;
+}
+
+.btn2:hover {
+  background-color: #e71425;
+  border: 2px solid #e71425;
+  color: #ffffff;
+  cursor: pointer;
+  transition: border 185ms ease-in, color 200ms ease-in;
+  transition: background 60ms ease-in, color 200ms ease-in;
+}

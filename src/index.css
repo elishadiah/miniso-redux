@@ -1,0 +1,15 @@
+/*MISIO DEFAULT STYLES*/
+
+@font-face {
+  font-family: "Avenir-Heavy";
+  src: url("./assets/font/Avenir-Heavy.otf");
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Avenir-Heavy";
+}
+
+body {
+  margin: 0;
+}

@@ -1,0 +1,62 @@
+.Link {
+  text-decoration: none;
+  color: #000000;
+}
+
+@font-face {
+  font-family: "Avenir-Heavy";
+  src: url("../../assets/font/Avenir-Heavy.otf");
+}
+
+.bTnProperty {
+  font-family: "Avenir-Heavy";
+  width: 70%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  font-weight: bold;
+  letter-spacing: 0.08rem;
+  margin-right: 100px;
+  text-transform: uppercase;
+  font-size: 1rem;
+  background-color: #e71425;
+  color: #ffffff;
+  border: 2px solid #e71425;
+  transition: background 60ms ease-in, color 60ms ease-in;
+}
+
+.bTnProperty:hover {
+  background-color: #ffffff;
+  border: 2px solid #e71425;
+  color: #e71425;
+  cursor: pointer;
+  transition: border 60ms ease-in, color 60ms ease-in;
+  transition: background 60ms ease-in, color 60ms ease-in;
+}
+
+.TopbTnRightProperty {
+  font-family: "Avenir-Heavy";
+  width: 25%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  font-weight: bold;
+  letter-spacing: 0.08rem;
+  text-transform: uppercase;
+  font-size: 1rem;
+  background-color: #e71425;
+  color: #ffffff;
+  border: 2px solid #e71425;
+  transition: background 60ms ease-in, color 60ms ease-in;
+}
+
+.TopbTnRightProperty:hover {
+  background-color: #ffffff;
+  border: 2px solid #e71425;
+  color: #e71425;
+  cursor: pointer;
+  transition: border 60ms ease-in, color 60ms ease-in;
+  transition: background 60ms ease-in, color 60ms ease-in;
+}
+
+.link2 {
+  padding-left: 40px;
+}

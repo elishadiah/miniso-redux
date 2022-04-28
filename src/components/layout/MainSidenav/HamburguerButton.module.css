@@ -1,0 +1,19 @@
+/*HAMBURGUER*/
+
+.btn {
+  margin-left: 5px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  cursor: pointer;
+}
+
+.hamburguerBtn {
+  font-size: 35px;
+  padding-right: 5px;
+}
+
+.text {
+  font-size: 20px;
+}

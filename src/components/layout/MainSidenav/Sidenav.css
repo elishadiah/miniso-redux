@@ -1,0 +1,53 @@
+.sidenav {
+  max-width: 280px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  transform-origin: left center;
+  transform: translateX(-420px);
+}
+
+.sidenavHeader {
+  color: white;
+  font-weight: bold;
+  background-color: red;
+  padding: 10px 0px 10px 30px;
+  font-size: 23px;
+}
+
+.sideNavContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+/*ANIMATIONS*/
+
+/*EXPAND THE ENTIRE SIDENAV OUTWARDS*/
+
+@keyframes moveSideBar {
+  0% {
+    transform: translateX(-420px);
+    z-index: 100;
+  }
+  100% {
+    transform: translateX(-0px);
+  }
+}
+
+/*GENERAL FADE INTO EXISTENCE*/
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,49 @@
+.Container {
+  display: flex;
+  background-color: #daffff;
+  color: #ffffff;
+  padding: 20px;
+  height: 90vh;
+}
+
+.Left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.Center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.Right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.Icon p {
+  font-size: 25px;
+  font-weight: 1000;
+  color: #000000;
+  justify-content: center;
+}
+
+/*MEDIA QUERIES*/
+/*SUPER WIDE*/
+
+/*TABLET*/
+@media only screen and (max-width: 641px) {
+}
+
+/*MOBILE*/
+@media only screen and (max-width: 414px) {
+}

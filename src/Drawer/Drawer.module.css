@@ -1,0 +1,87 @@
+a.link {
+  text-decoration: none;
+  color: #000000;
+  padding-left: 25px;
+  font-size: 13px;
+}
+
+.diBox {
+  background-color: #e71425;
+  color: #fff;
+}
+
+/*.daLink {
+  display: none;
+}*/
+
+.btn {
+  color: #fff;
+}
+
+.hamburguer {
+  /* font-size: 40px; */
+  padding-right: 5px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.title {
+  font-size: 20px;
+  color: #fff;
+}
+
+/*MEDIAQUERIES*/
+
+@media only screen and (max-width: 1920px) {
+}
+
+@media only screen and (max-width: 1048px) {
+}
+
+@media only screen and (max-width: 960px) {
+}
+
+@media only screen and (max-width: 898px) {
+  /*  .daLink {
+    display: list-item;
+    font-size: 12.5px;
+    justify-content: left;
+    padding-left: 18px;
+    text-decoration: none;
+    color: #000000;
+  }*/
+}
+
+@media only screen and (max-width: 882px) {
+  .title {
+    font-size: 16px;
+    color: #fff;
+  }
+}
+
+@media only screen and (max-width: 645px) {
+  a.link {
+    text-decoration: none;
+    color: #000000;
+    padding-left: 15px;
+  }
+
+  .diBox {
+    background-color: #e71425;
+    color: #fff;
+  }
+
+  .btn {
+    color: #fff;
+  }
+
+  .hamburguer {
+    font-size: 40px;
+    padding-right: 5px;
+    font-weight: 700;
+    color: #fff;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+}
