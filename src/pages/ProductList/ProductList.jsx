@@ -43,6 +43,7 @@ const ProductList = () => {
     maxPrice: 0,
     name: '',
   });
+  //   http://3.16.73.177:9080/public/products/?size=20&page=0&category=16
   const [sort, setSort] = useState('newest');
   const history = useHistory();
 
@@ -121,10 +122,10 @@ const ProductList = () => {
                     value={filters.minPrice}
                     onChange={(e) => {
                       const value = e.target.value;
-                      if (parseInt(value) > 0) {
+                      if (parseInt(value) >= 0) {
                         setFilters((prev) => ({
                           ...prev,
-                          minPrice: value,
+                          minPrice: parseInt(value),
                         }));
                       }
                     }}
@@ -140,10 +141,10 @@ const ProductList = () => {
                     value={filters.maxPrice}
                     onChange={(e) => {
                       const value = e.target.value;
-                      if (parseInt(value) > 0) {
+                      if (parseInt(value) >= 0) {
                         setFilters((prev) => ({
                           ...prev,
-                          maxPrice: value,
+                          maxPrice: parseInt(value),
                         }));
                       }
                     }}

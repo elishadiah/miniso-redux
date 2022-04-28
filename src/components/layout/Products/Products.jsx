@@ -1,10 +1,10 @@
-import { Container, Pagination } from "@mui/material";
-import axios from "axios";
-import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
-import styled from "styled-components";
-import usePagination from "./Pagination";
+import { Container, Pagination } from '@mui/material';
+import axios from 'axios';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import styled from 'styled-components';
+import usePagination from './Pagination';
 //import CustomPagination from "../Pagination/CustomPagination";
-import Product from "./Product";
+import Product from './Product';
 
 const Products = ({ cat, filters, filtersData, sort }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,19 +15,27 @@ const Products = ({ cat, filters, filtersData, sort }) => {
   const [count, setCount] = useState(1);
   const getProducts = useCallback(
     async (currentPage) => {
-      const filterDataTo = Object.entries(filtersData)
-        .filter(([key, value]) => !!value)
+      const filterDataTo = Object.entries({
+        ...filtersData,
+        page: currentPage,
+        category: cat,
+        size: 15,
+      })
+        .filter(([key, value]) => {
+          return !!value;
+        })
         .map(([key, value]) => `${key}=${value}`)
-        .join("&");
+        .join('&');
       console.log(filterDataTo);
       const res = await axios.get(
         cat
-          ? `http://3.16.73.177:9080/public/products/size/15/page/${currentPage}?category=${cat}&${filterDataTo}`
-          : "http://3.16.73.177:9080/public/products/size/15/page/0?category=01",
+          ? `http://3.16.73.177:9080/public/products/?${filterDataTo}`
+          : 'http://3.16.73.177:9080/public/products/size/15/page/0?category=01',
         {
           crossDomain: true,
         }
       );
+      console.log(res);
       setProducts(res.data.content);
       setTotalRows(res.data.totalElements);
       setCount(res.data.totalPages);
@@ -60,7 +68,7 @@ const Products = ({ cat, filters, filtersData, sort }) => {
   }, [products, cat, filters]);
 
   useEffect(() => {
-    if (sort === "asc") {
+    if (sort === 'asc') {
       setFilteredProducts((prev) => {
         const asc = prev.sort((a, b) => {
           if (a.precio > b.precio) return 1;
@@ -90,7 +98,7 @@ const Products = ({ cat, filters, filtersData, sort }) => {
   }, [sort, products, filters]);
 
   const newProducts = useMemo(() => {
-    if (sort === "asc") {
+    if (sort === 'asc') {
       const asc = formateProducts.sort((a, b) => {
         if (a.precio > b.precio) return 1;
         if (a.precio < b.precio) return -1;
@@ -99,7 +107,7 @@ const Products = ({ cat, filters, filtersData, sort }) => {
       return asc;
     }
 
-    if (sort === "desc") {
+    if (sort === 'desc') {
       const desc = formateProducts.sort((a, b) => {
         if (a.precio > b.precio) return -1;
         if (a.precio < b.precio) return 1;
@@ -122,14 +130,14 @@ const Products = ({ cat, filters, filtersData, sort }) => {
           </Contenitrice>
         </div>
         <div
-          className="ImpaginAzione"
+          className='ImpaginAzione'
           style={{ marginTop: 50, marginBottom: 20 }}
         >
           <div
             style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
               marginTop: 10,
             }}
           >
@@ -137,7 +145,7 @@ const Products = ({ cat, filters, filtersData, sort }) => {
               onChange={handlePageChange}
               count={count}
               page={currentPage}
-              size="large"
+              size='large'
             />
           </div>
         </div>
