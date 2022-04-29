@@ -9,7 +9,7 @@ const Stores = ({ viewStore = false }) => {
         <div className={classes.ImgContainer}>
           <img
             className={classes.Image}
-            src="./img/section_images/web-tiendas.png"
+            src="https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/tiendas+-+banner.png"
             alt=""
           />
         </div>
