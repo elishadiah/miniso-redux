@@ -1,7 +1,9 @@
 import { Container, Pagination } from '@mui/material';
 import axios from 'axios';
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import getQueryParams from '../../../utilities/getGetQueryParams';
 import usePagination from './Pagination';
 //import CustomPagination from "../Pagination/CustomPagination";
 import Product from './Product';
@@ -13,6 +15,17 @@ const Products = ({ cat, filters, filtersData, sort }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [totalRows, setTotalRows] = useState(1);
   const [count, setCount] = useState(1);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    const pageNo = parseInt(getQueryParams('pageNo'));
+    if (pageNo) {
+      setCurrentPage(pageNo);
+      console.log({ pageNo });
+    }
+  }, []);
+
   const getProducts = useCallback(
     async (currentPage) => {
       const filterDataTo = Object.entries({
@@ -47,10 +60,11 @@ const Products = ({ cat, filters, filtersData, sort }) => {
     getProducts(currentPage);
   }, [currentPage, getProducts]);
 
-  const _DATA = usePagination(products, 12);
+  const _DATA = usePagination(products, 15);
 
   const handlePageChange = (e, p) => {
     setCurrentPage(parseInt(p));
+    history.push(`/productoslista/${cat}?pageNo=${parseInt(p)}`);
     _DATA.jump(p);
   };
 

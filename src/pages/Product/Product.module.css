@@ -122,7 +122,6 @@
   font-family: 'Avenir-Heavy';
   margin-left: 20px;
   margin-top: 25px;
-  width: 10%;
   padding: 0.5rem;
   box-sizing: border-box;
   font-weight: bold;
@@ -146,7 +145,7 @@
 }
 
 .bTnProperty {
-  font-family: "Avenir-Heavy";
+  font-family: 'Avenir-Heavy';
   margin-top: 15px;
   width: 50%;
   padding: 0.5rem;
