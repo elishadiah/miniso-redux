@@ -3,6 +3,10 @@ a.link {
   color: #000000;
   padding-left: 25px;
   font-size: 13px;
+  transition: all 0.3s;
+}
+a.link:hover {
+  color: #e71425;
 }
 
 .diBox {
