@@ -6,8 +6,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  //Routes,
-  Link,
+    //Routes,
+    Link
 } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import classes from "../../FirstNavigation.module.css";
@@ -56,6 +56,15 @@ const Header = () => {
                         onClick={logOut}
                       >
                         CERRAR SESION
+                      </Link>
+                    </div>
+                    <div className={`nav-item`}>
+                      <Link
+                        to="#"
+                        className={classes.MenuItem}
+                        onClick={logOut}
+                      >
+                        New Item
                       </Link>
                     </div>
                   </div>
