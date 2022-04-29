@@ -18,7 +18,7 @@ const Products = ({ cat, filters, filtersData, sort }) => {
       const filterDataTo = Object.entries({
         ...filtersData,
         page: currentPage,
-        category: cat,
+        category: cat === 'all' ? false : cat,
         size: 15,
       })
         .filter(([key, value]) => {

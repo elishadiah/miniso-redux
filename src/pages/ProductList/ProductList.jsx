@@ -2,6 +2,7 @@ import { Container } from '@mui/material';
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import styled from 'styled-components';
 import Products from '../../components/layout/Products/Products';
 import ProductsBanner from '../../components/layout/Products/ProductsBanner';
 import {
@@ -43,7 +44,6 @@ const ProductList = () => {
     maxPrice: 0,
     name: '',
   });
-  //   http://3.16.73.177:9080/public/products/?size=20&page=0&category=16
   const [sort, setSort] = useState('newest');
   const history = useHistory();
 
@@ -51,16 +51,9 @@ const ProductList = () => {
     const value = event.target.value;
     try {
       history.push(`/productoslista/${value}`);
-      // history.go(`/productoslista/${value}`);
     } catch (err) {
       console.log('- - - - - err: ', err);
     }
-    /*
-      setFilters({
-        ...filters,
-        [e.target.name]: value,
-      });
-      */
   };
 
   const [categories, setCategories] = useState([]);
@@ -81,6 +74,12 @@ const ProductList = () => {
 
   useEffect(() => setImage(images[cat]), [cat]);
 
+  const filterClear = () => {
+    setFilters({ minPrice: null, maxPrice: null, name: '' });
+    setSort('newest');
+    history.push(`/productoslista/all`);
+  };
+
   return (
     <>
       <ProductsBanner image={image} />
@@ -96,7 +95,7 @@ const ProductList = () => {
 
               {/* I have another comment, Could you add titles to the filters? for the first it would be "Categorías:" for the Second "" for the Third "Precio Máximo:" for the search "Buscador de Productos:" and for the fifth "Ordena por precio:" */}
 
-              <FilterContainerResponsive className='col-12 col-sm-6 col-md-3 '>
+              <FilterContainerResponsive className='col-12 col-sm-6 col-md-2 '>
                 <h6>Categorías</h6>
                 <Select1
                   value={cat}
@@ -104,6 +103,9 @@ const ProductList = () => {
                   className='form-control'
                   onChange={handleFilters}
                 >
+                  <Option value={'all'} key={Math.random()}>
+                    All
+                  </Option>
                   {categories.map((category) => (
                     <Option value={category.codCatUno} key={category.codCatUno}>
                       {category.descripcion}
@@ -114,18 +116,19 @@ const ProductList = () => {
               <div className='row col-12 col-sm-6 col-md-3 gx-0 gx-sm-2 mb-2 mb-sm-0'>
                 <div className='col-6'>
                   <h6>Precio Mínimo:</h6>
+
                   <PriceInput
                     type='number'
                     name='minPrice'
                     placeholder='min'
                     className='form-control'
-                    value={filters.minPrice}
+                    value={filters.minPrice || ''}
                     onChange={(e) => {
-                      const value = e.target.value;
-                      if (parseInt(value) >= 0) {
+                      const value = parseInt(e.target.value);
+                      if (value >= 0) {
                         setFilters((prev) => ({
                           ...prev,
-                          minPrice: parseInt(value),
+                          minPrice: value,
                         }));
                       }
                     }}
@@ -138,7 +141,7 @@ const ProductList = () => {
                     name='maxPrice'
                     placeholder='max'
                     className='form-control '
-                    value={filters.maxPrice}
+                    value={filters.maxPrice || ''}
                     onChange={(e) => {
                       const value = e.target.value;
                       if (parseInt(value) >= 0) {
@@ -166,11 +169,12 @@ const ProductList = () => {
                   }}
                 />
               </div>
-              <Sortby className='col-12 col-sm-6 col-md-3 '>
-                <h6>Sort By</h6>
+              <Sortby className='col-12 col-sm-6 col-md-2 '>
+                <h6>Ordena por:</h6>
                 <Select1
                   onChange={(e) => setSort(e.target.value)}
                   className='form-control'
+                  value={sort}
                 >
                   <Option value='newest'>Ordenar </Option>
                   <Option Option value='desc'>
@@ -179,6 +183,10 @@ const ProductList = () => {
                   <Option value='asc'>Precio más bajo</Option>
                 </Select1>
               </Sortby>
+              <div className='col-md-2'>
+                <h6 style={{ visibility: 'hidden' }}>h</h6>
+                <Button onClick={filterClear}>Clear</Button>
+              </div>
             </Top>
             <Bottom>
               <Info>
@@ -198,3 +206,22 @@ const ProductList = () => {
 };
 
 export default ProductList;
+
+const Button = styled.button`
+  padding: 0.3rem 1rem;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 13px;
+  background-color: #e71425;
+  color: #ffffff;
+  border: 2px solid #e71425;
+  /* border: none; */
+  border-radius: 3px;
+  transition: background 200ms ease-in, color 200ms ease-in;
+
+  &:hover {
+    background-color: transparent;
+    color: #e71425;
+    cursor: pointer;
+  }
+`;
