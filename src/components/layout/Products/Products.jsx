@@ -8,7 +8,7 @@ import usePagination from './Pagination';
 //import CustomPagination from "../Pagination/CustomPagination";
 import Product from './Product';
 
-const Products = ({ cat, filters, filtersData, sort }) => {
+const Products = ({ cat, filters, filtersData, sort, currentCategory }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState([]);
   const [formateProducts, setFormateProducts] = useState([]);
@@ -136,6 +136,9 @@ const Products = ({ cat, filters, filtersData, sort }) => {
   return (
     <div>
       <Container>
+        <Title>
+          {currentCategory} - ({totalRows} products)
+        </Title>
         <div>
           <Contenitrice>
             {newProducts.map((item) => (
@@ -253,5 +256,14 @@ const Contenitrice = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(8rem, 7rem));
     gap: 0rem;
     justify-content: center;
+  }
+`;
+const Title = styled.h2`
+  text-align: left;
+  margin: 20px 0;
+  font-size: 14px;
+  text-transform: capitalize;
+  @media only screen and (min-width: 351px) {
+    font-size: 15px;
   }
 `;

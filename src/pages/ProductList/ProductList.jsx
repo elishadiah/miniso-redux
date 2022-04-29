@@ -1,6 +1,6 @@
 import { Container } from '@mui/material';
 import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Products from '../../components/layout/Products/Products';
@@ -79,7 +79,11 @@ const ProductList = () => {
     setSort('newest');
     history.push(`/productoslista/all`);
   };
-
+  const currentCategory = useMemo(() => {
+    if (!cat || cat === 'all') return 'all';
+    const foundCategory = categories.find((c) => c.codCatUno === cat);
+    return foundCategory.descripcion;
+  }, [cat, categories]);
   return (
     <>
       <ProductsBanner image={image} />
@@ -195,6 +199,7 @@ const ProductList = () => {
                   filters={{}}
                   filtersData={filters}
                   sort={sort}
+                  currentCategory={currentCategory || ''}
                 />
               </Info>
             </Bottom>
