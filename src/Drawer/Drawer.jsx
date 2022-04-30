@@ -1,20 +1,18 @@
-import React from "react";
-import Box from "@mui/material/Box";
-import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-//import styled from "styled-components";
-import { Link } from "react-router-dom";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
+import { IconButton } from '@mui/material';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 //import Divider from "@mui/material/Divider";
-import ListItemText from "@mui/material/ListItemText";
-import { IconButton } from "@mui/material";
-import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
+import ListItemText from '@mui/material/ListItemText';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import axios from 'axios';
+import React, { useCallback, useEffect, useState } from 'react';
+//import styled from "styled-components";
+import { Link } from 'react-router-dom';
 //import { useHistory } from "react-router";
 //import MenuIcon from "@mui/icons-material/Menu";
-
 //import { Link } from "react-router-dom";
-import classes from "./Drawer.module.css";
+import classes from './Drawer.module.css';
 
 const Drawer = () => {
   const [state, setState] = React.useState(false);
@@ -23,7 +21,8 @@ const Drawer = () => {
   };
   const [categories, setCategories] = useState([]);
   const getCategories = useCallback(async () => {
-    let url = "http://3.16.73.177:9080/public/categories/first";
+    let url =
+      'https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/categories/first';
     const res = await axios.get(url, {
       crossDomain: true,
     });
@@ -43,12 +42,12 @@ const Drawer = () => {
         <div className={classes.title}>Categorías</div>
       </IconButton>
       <SwipeableDrawer
-        anchor={"left"}
+        anchor={'left'}
         open={state}
         onClose={toggleDrawer(false)}
         onClick={toggleDrawer(false)}
         PaperProps={{
-          sx: { width: "200px" },
+          sx: { width: '200px' },
         }}
       >
         <div>
@@ -65,7 +64,7 @@ const Drawer = () => {
 
             <ListItem>
               <ListItemText>
-                {" "}
+                {' '}
                 {categories.map((cat) => (
                   <Link
                     to={`/productoslista/${cat.codCatUno}`}

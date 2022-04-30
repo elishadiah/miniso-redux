@@ -59,7 +59,8 @@ const ProductList = () => {
   const [categories, setCategories] = useState([]);
 
   const getCategories = useCallback(async () => {
-    const catUrl = 'http://3.16.73.177:9080/public/categories/first';
+    const catUrl =
+      'https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/categories/first';
     const res = await axios.get(catUrl, {
       crossDomain: true,
     });
