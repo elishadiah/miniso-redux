@@ -1,19 +1,19 @@
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { Container } from "@mui/material";
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { Container } from '@mui/material';
 //MATERIAL-UI FIRSTNAVIGATIONBAR
-import Badge from "@mui/material/Badge";
-import "bootstrap/dist/css/bootstrap.min.css";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import Badge from '@mui/material/Badge';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-    //Routes,
-    Link
-} from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
-import classes from "../../FirstNavigation.module.css";
-import { clear } from "../../redux/cartRedux";
-import { loginSuccess } from "../../redux/userRedux";
-import AuthService from "../../services/auth.service";
+  //Routes,
+  Link,
+} from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import classes from '../../FirstNavigation.module.css';
+import { clear } from '../../redux/cartRedux';
+import { loginSuccess } from '../../redux/userRedux';
+import AuthService from '../../services/auth.service';
 
 const Header = () => {
   const quantity = useSelector((state) => state.cart.quantity);
@@ -28,15 +28,15 @@ const Header = () => {
   };
   return (
     <div>
-      {" "}
+      {' '}
       <header className={classes.header}>
         <Container>
           <div className={classes.container_bar}>
             <div className={classes.wrapper}>
               <div className={classes.left}>
                 <div className={classes.logo}>
-                  <Link to="/">
-                    <img src="/img/logo.png" alt="MINISO" />
+                  <Link to='/'>
+                    <img src='/img/logo.png' alt='MINISO' />
                   </Link>
                 </div>
               </div>
@@ -44,14 +44,14 @@ const Header = () => {
               <div className={classes.right}>
                 {isAuthenticated ? (
                   <div className={classes.specialLinks}>
-                    <Link to={"/profile"} className={classes.link}>
+                    <Link to={'/profile'} className={classes.link}>
                       <div className={classes.MenuItem}>
                         {currentUser.user_name}
                       </div>
                     </Link>
                     <div className={`nav-item ${classes.logoutButton}`}>
                       <Link
-                        to="/login"
+                        to='/login'
                         className={classes.MenuItem}
                         onClick={logOut}
                       >
@@ -60,7 +60,7 @@ const Header = () => {
                     </div>
                     <div className={`nav-item`}>
                       <Link
-                        to="#"
+                        to='#'
                         className={classes.MenuItem}
                         onClick={logOut}
                       >
@@ -70,27 +70,27 @@ const Header = () => {
                   </div>
                 ) : (
                   <div className={classes.specialLinks}>
-                    <Link to="/login" className={classes.linkS}>
+                    <Link to='/login' className={classes.linkS}>
                       <div className={classes.MenuItem}>INICIAR SESIÓN</div>
                     </Link>
-                    <Link to="/register" className={classes.linkS}>
+                    <Link to='/register' className={classes.linkS}>
                       <div className={classes.MenuItem}>REGISTRARSE</div>
                     </Link>
-                    <Link to="/login" className={classes.linkResp}>
-                      <i class="fa-solid fa-circle-user"></i>
+                    <Link to='/login' className={classes.linkResp}>
+                      <i className='fa-solid fa-circle-user'></i>
                     </Link>
-                    <Link to="/register" className={classes.linkResp}>
-                      <i class="fa-solid fa-right-to-bracket"></i>
+                    <Link to='/register' className={classes.linkResp}>
+                      <i className='fa-solid fa-right-to-bracket'></i>
                     </Link>
                   </div>
                 )}
-                <Link to="/cart">
+                <Link to='/cart'>
                   <div className={classes.MenuItem}>
                     <Badge
                       badgeContent={isAuthenticated ? quantity : 0}
-                      color="error"
+                      color='error'
                     >
-                      <ShoppingCartOutlinedIcon color="primary" />
+                      <ShoppingCartOutlinedIcon color='primary' />
                     </Badge>
                   </div>
                 </Link>

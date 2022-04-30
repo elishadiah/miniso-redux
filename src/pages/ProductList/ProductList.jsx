@@ -32,18 +32,24 @@ const images = {
   15: imageBaseUrl + '/textil+-+banner.png',
   16: imageBaseUrl + '/bolsas+-+banner.png',
 };
-const ProductList = () => {
+const ProductList = ({ isPrice39 = false }) => {
   const { category: cat } = useParams();
   useEffect(() => {
     window.scrollTo(0, 0);
+    console.log(cat);
   }, [cat]);
 
-  // eslint-disable-next-line no-unused-vars
   const [filters, setFilters] = useState({
     minPrice: 0,
     maxPrice: 0,
     name: '',
   });
+  useEffect(() => {
+    if (isPrice39) {
+      setFilters((prev) => ({ ...prev, maxPrice: 39 }));
+    }
+  }, [isPrice39]);
+
   const [sort, setSort] = useState('newest');
   const history = useHistory();
 
@@ -83,7 +89,7 @@ const ProductList = () => {
   const currentCategory = useMemo(() => {
     if (!cat || cat === 'all') return 'all';
     const foundCategory = categories.find((c) => c.codCatUno === cat);
-    return foundCategory.descripcion;
+    return foundCategory?.descripcion;
   }, [cat, categories]);
   return (
     <>
@@ -94,109 +100,115 @@ const ProductList = () => {
             <br />
             <br />
             <p></p>
-            <Top className='row gx-0 gx-sm-3'>
-              {/*<TopButton>CONTINUE SHOPPING</TopButton>*/}
-              {/* <TopTexts><TopText>No. Resultados</TopText></TopTexts> */}
+            {!isPrice39 && (
+              <Top className='row gx-0 gx-sm-3'>
+                {/*<TopButton>CONTINUE SHOPPING</TopButton>*/}
+                {/* <TopTexts><TopText>No. Resultados</TopText></TopTexts> */}
 
-              {/* I have another comment, Could you add titles to the filters? for the first it would be "Categorías:" for the Second "" for the Third "Precio Máximo:" for the search "Buscador de Productos:" and for the fifth "Ordena por precio:" */}
+                {/* I have another comment, Could you add titles to the filters? for the first it would be "Categorías:" for the Second "" for the Third "Precio Máximo:" for the search "Buscador de Productos:" and for the fifth "Ordena por precio:" */}
 
-              <FilterContainerResponsive className='col-12 col-sm-6 col-md-2 '>
-                <h6>Categorías</h6>
-                <Select1
-                  value={cat}
-                  name='categoría'
-                  className='form-control'
-                  onChange={handleFilters}
-                >
-                  <Option value={'all'} key={Math.random()}>
-                    All
-                  </Option>
-                  {categories.map((category) => (
-                    <Option value={category.codCatUno} key={category.codCatUno}>
-                      {category.descripcion}
-                    </Option>
-                  ))}
-                </Select1>
-              </FilterContainerResponsive>
-              <div className='row col-12 col-sm-6 col-md-3 gx-0 gx-sm-2 mb-2 mb-sm-0'>
-                <div className='col-6'>
-                  <h6>Precio Mínimo:</h6>
-
-                  <PriceInput
-                    type='number'
-                    name='minPrice'
-                    placeholder='min'
+                <FilterContainerResponsive className='col-12 col-sm-6 col-md-2 '>
+                  <h6>Categorías</h6>
+                  <Select1
+                    value={cat}
+                    name='categoría'
                     className='form-control'
-                    value={filters.minPrice || ''}
-                    onChange={(e) => {
-                      const value = parseInt(e.target.value);
-                      if (value >= 0) {
-                        setFilters((prev) => ({
-                          ...prev,
-                          minPrice: value,
-                        }));
-                      }
-                    }}
-                  />
+                    onChange={handleFilters}
+                  >
+                    <Option value={'all'} key={Math.random()}>
+                      All
+                    </Option>
+                    {categories.map((category) => (
+                      <Option
+                        value={category.codCatUno}
+                        key={category.codCatUno}
+                      >
+                        {category.descripcion}
+                      </Option>
+                    ))}
+                  </Select1>
+                </FilterContainerResponsive>
+                <div className='row col-12 col-sm-6 col-md-3 gx-0 gx-sm-2 mb-2 mb-sm-0'>
+                  <div className='col-6'>
+                    <h6>Precio Mínimo:</h6>
+
+                    <PriceInput
+                      type='number'
+                      name='minPrice'
+                      placeholder='min'
+                      className='form-control'
+                      value={filters.minPrice || ''}
+                      onChange={(e) => {
+                        const value = parseInt(e.target.value);
+                        if (value >= 0) {
+                          setFilters((prev) => ({
+                            ...prev,
+                            minPrice: value,
+                          }));
+                        }
+                      }}
+                    />
+                  </div>
+                  <div className='col-6'>
+                    <h6>Precio Máximo:</h6>
+                    <PriceInput
+                      type='number'
+                      name='maxPrice'
+                      placeholder='max'
+                      className='form-control '
+                      value={filters.maxPrice || ''}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (parseInt(value) >= 0) {
+                          setFilters((prev) => ({
+                            ...prev,
+                            maxPrice: parseInt(value),
+                          }));
+                        }
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className='col-6'>
-                  <h6>Precio Máximo:</h6>
+                <div className='col-12 col-sm-6 mb-1 mb-sm-0 col-md-3 '>
+                  <h6>Buscador de Productos:</h6>
                   <PriceInput
-                    type='number'
-                    name='maxPrice'
-                    placeholder='max'
-                    className='form-control '
-                    value={filters.maxPrice || ''}
+                    type='text'
+                    placeholder='search...'
+                    className='form-control'
+                    value={filters.name}
                     onChange={(e) => {
-                      const value = e.target.value;
-                      if (parseInt(value) >= 0) {
-                        setFilters((prev) => ({
-                          ...prev,
-                          maxPrice: parseInt(value),
-                        }));
-                      }
+                      setFilters((prev) => ({
+                        ...prev,
+                        name: e.target.value.toUpperCase(),
+                      }));
                     }}
                   />
                 </div>
-              </div>
-              <div className='col-12 col-sm-6 mb-1 mb-sm-0 col-md-3 '>
-                <h6>Buscador de Productos:</h6>
-                <PriceInput
-                  type='text'
-                  placeholder='search...'
-                  className='form-control'
-                  value={filters.name}
-                  onChange={(e) => {
-                    setFilters((prev) => ({
-                      ...prev,
-                      name: e.target.value.toUpperCase(),
-                    }));
-                  }}
-                />
-              </div>
-              <Sortby className='col-12 col-sm-6 col-md-2 '>
-                <h6>Ordena por:</h6>
-                <Select1
-                  onChange={(e) => setSort(e.target.value)}
-                  className='form-control'
-                  value={sort}
-                >
-                  <Option value='newest'>Ordenar </Option>
-                  <Option Option value='desc'>
-                    Precio más alto
-                  </Option>
-                  <Option value='asc'>Precio más bajo</Option>
-                </Select1>
-              </Sortby>
-              <div className='col-md-2'>
-                <h6 style={{ visibility: 'hidden' }}>h</h6>
-                <Button onClick={filterClear}>Clear</Button>
-              </div>
-            </Top>
+                <Sortby className='col-12 col-sm-6 col-md-2 '>
+                  <h6>Ordena por:</h6>
+                  <Select1
+                    onChange={(e) => setSort(e.target.value)}
+                    className='form-control'
+                    value={sort}
+                  >
+                    <Option value='newest'>Ordenar </Option>
+                    <Option Option value='desc'>
+                      Precio más alto
+                    </Option>
+                    <Option value='asc'>Precio más bajo</Option>
+                  </Select1>
+                </Sortby>
+                <div className='col-md-2'>
+                  <h6 style={{ visibility: 'hidden' }}>h</h6>
+                  <Button onClick={filterClear}>Clear</Button>
+                </div>
+              </Top>
+            )}
             <Bottom>
               <Info>
                 <Products
-                  cat={cat}
+                  cat={cat ? cat : 'all'}
+                  isPrice39={isPrice39}
                   filters={{}}
                   filtersData={filters}
                   sort={sort}
