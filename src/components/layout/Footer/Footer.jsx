@@ -50,7 +50,7 @@ const Footer = () => {
               <h5 className='font-weight-bold text-uppercase mt-3 mb-4'>
                 Categorías
               </h5>
-              <div className='d-flex justify-content-between'>
+              <div className='d-flex ' style={{ gap: '15px' }}>
                 {formateCategories.map((items) => (
                   <ul className='category_list' key={Math.random()}>
                     {items.map((category) => (
