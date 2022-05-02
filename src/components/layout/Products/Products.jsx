@@ -8,20 +8,14 @@ import usePagination from './Pagination';
 //import CustomPagination from "../Pagination/CustomPagination";
 import Product from './Product';
 
-const Products = ({
-  cat,
-  filters,
-  filtersData,
-  sort,
-  currentCategory,
-  isPrice39,
-}) => {
+const Products = (props) => {
+  const { cat, filters, filtersData, sort, currentCategory, isPrice39 } = props;
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState([]);
   const [formateProducts, setFormateProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [totalRows, setTotalRows] = useState(1);
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(0);
 
   const history = useHistory();
 
@@ -33,45 +27,46 @@ const Products = ({
     }
   }, []);
 
-  const getProducts = useCallback(
-    async (currentPage) => {
-      const filterDataTo = Object.entries({
-        ...filtersData,
-        page: currentPage,
-        category: cat === 'all' ? false : cat,
-        size: 15,
+  const getProducts = useCallback(async () => {
+    const filterDataTo = Object.entries({
+      ...filtersData,
+      page: currentPage,
+      category: cat === 'all' ? false : cat,
+      size: 15,
+    })
+      .filter(([key, value]) => {
+        return !!value;
       })
-        .filter(([key, value]) => {
-          return !!value;
-        })
-        .map(([key, value]) => `${key}=${value}`)
-        .join('&');
-      console.log(filterDataTo);
-      const res = await axios.get(
-        cat
-          ? `http://3.16.73.177:9080/public/products/?${filterDataTo}`
-          : 'http://3.16.73.177:9080/public/products/size/15/page/0?category=01',
-        {
-          crossDomain: true,
-        }
-      );
-      console.log(res);
-      setProducts(res.data.content);
-      setTotalRows(res.data.totalElements);
-      setCount(res.data.totalPages);
-    },
-    [cat, filtersData]
-  );
+      .map(([key, value]) => `${key}=${value}`)
+      .join('&');
+    console.log(filterDataTo);
+    const res = await axios.get(
+      cat
+        ? `http://3.16.73.177:9080/public/products/?${filterDataTo}`
+        : 'http://3.16.73.177:9080/public/products/size/15/page/0?category=01',
+      {
+        crossDomain: true,
+      }
+    );
+    console.log(res);
+    setProducts(res.data.content);
+    setTotalRows(res.data.totalElements);
+    setCount(res.data.totalPages);
+  }, [cat, filtersData, currentPage]);
 
   useEffect(() => {
-    getProducts(currentPage);
-  }, [currentPage, getProducts]);
+    getProducts();
+  }, [getProducts]);
 
   const _DATA = usePagination(products, 15);
 
   const handlePageChange = (e, p) => {
     setCurrentPage(parseInt(p));
-    history.push(`/productoslista/${cat}?pageNo=${parseInt(p)}`);
+    if (isPrice39) {
+      history.push(`/menos-de-q39?pageNo=${parseInt(p)}`);
+    } else {
+      history.push(`/productoslista/${cat}?pageNo=${parseInt(p)}`);
+    }
     _DATA.jump(p);
   };
 

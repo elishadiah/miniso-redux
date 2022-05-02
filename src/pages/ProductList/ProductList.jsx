@@ -192,9 +192,7 @@ const ProductList = ({ isPrice39 = false }) => {
                     value={sort}
                   >
                     <Option value='newest'>Ordenar </Option>
-                    <Option Option value='desc'>
-                      Precio más alto
-                    </Option>
+                    <Option value='desc'>Precio más alto</Option>
                     <Option value='asc'>Precio más bajo</Option>
                   </Select1>
                 </Sortby>
