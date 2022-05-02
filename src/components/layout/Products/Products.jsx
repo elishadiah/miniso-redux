@@ -40,6 +40,7 @@ const Products = (props) => {
       .map(([key, value]) => `${key}=${value}`)
       .join('&');
     console.log(filterDataTo);
+
     const res = await axios.get(
       cat
         ? `http://3.16.73.177:9080/public/products/?${filterDataTo}`
@@ -48,10 +49,10 @@ const Products = (props) => {
         crossDomain: true,
       }
     );
-    console.log(res);
+
     setProducts(res.data.content);
     setTotalRows(res.data.totalElements);
-    setCount(res.data.totalPages);
+    setCount(res.data.totalPages - 1);
   }, [cat, filtersData, currentPage]);
 
   useEffect(() => {
@@ -61,6 +62,7 @@ const Products = (props) => {
   const _DATA = usePagination(products, 15);
 
   const handlePageChange = (e, p) => {
+    window.scrollTo(0, 300);
     setCurrentPage(parseInt(p));
     if (isPrice39) {
       history.push(`/menos-de-q39?pageNo=${parseInt(p)}`);
@@ -150,26 +152,28 @@ const Products = (props) => {
             ))}
           </Contenitrice>
         </div>
-        <div
-          className='ImpaginAzione'
-          style={{ marginTop: 50, marginBottom: 20 }}
-        >
+        {count > 0 && (
           <div
-            style={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              marginTop: 10,
-            }}
+            className='ImpaginAzione'
+            style={{ marginTop: 50, marginBottom: 20 }}
           >
-            <Pagination
-              onChange={handlePageChange}
-              count={count}
-              page={currentPage}
-              size='large'
-            />
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: 10,
+              }}
+            >
+              <Pagination
+                onChange={handlePageChange}
+                count={count}
+                page={currentPage}
+                size='large'
+              />
+            </div>
           </div>
-        </div>
+        )}
       </Container>
     </div>
   );

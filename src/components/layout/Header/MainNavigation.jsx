@@ -23,6 +23,9 @@ const MainNavigation = ({ item }) => {
               <Link to={`/menos-de-q39`}>Menos de Q39</Link>
             </li>
             <li>
+              <Link to={`/lo-más-nuevo`}>Lo más nuevo</Link>
+            </li>
+            <li>
               <Link to='/viewstores'>Tiendas</Link>
             </li>
             <li>

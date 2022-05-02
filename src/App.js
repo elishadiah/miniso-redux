@@ -30,6 +30,7 @@ import ContactUs from './pages/ContactUs';
 import HomePage from './pages/HomePage';
 import Login from './pages/Login/Login';
 import MenosDeQ39 from './pages/MenosDeQ39/MenosDeQ39';
+import NewProductList from './pages/NewProductList/NewProductList';
 //import { render } from "@testing-library/react";
 import Payment from './pages/Payment/Payment';
 import Product from './pages/Product/Product';
@@ -135,6 +136,9 @@ const App = () => {
         </Route>
         <Route path='/menos-de-q39'>
           <MenosDeQ39 />
+        </Route>
+        <Route path='/lo-más-nuevo'>
+          <NewProductList />
         </Route>
         <Route path='/cart'>
           <Cart />
