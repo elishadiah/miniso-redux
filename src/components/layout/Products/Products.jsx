@@ -23,28 +23,27 @@ const Products = (props) => {
     const pageNo = parseInt(getQueryParams('pageNo'));
     if (pageNo) {
       setCurrentPage(pageNo);
-      console.log({ pageNo });
     }
   }, []);
 
   const getProducts = useCallback(async () => {
-    const filterDataTo = Object.entries({
+    const filterDataArray = Object.entries({
       ...filtersData,
-      page: parseInt(currentPage) - 1,
       category: cat === 'all' ? false : cat,
       size: 15,
-    })
-      .filter(([key, value]) => {
-        return !!value;
-      })
+    }).filter(([key, value]) => {
+      return !!value;
+    });
+    filterDataArray.push(['page', parseInt(currentPage) - 1]);
+
+    const filterDataTo = filterDataArray
       .map(([key, value]) => `${key}=${value}`)
       .join('&');
-    console.log(filterDataTo);
 
     const res = await axios.get(
       cat
         ? `http://3.16.73.177:9080/public/products/?${filterDataTo}`
-        : "http://3.16.73.177:9080/public/products/?size=15&page=0&category=01",
+        : 'http://3.16.73.177:9080/public/products/?size=15&page=0&category=01',
       {
         crossDomain: true,
       }
@@ -52,7 +51,7 @@ const Products = (props) => {
 
     setProducts(res.data.content);
     setTotalRows(res.data.totalElements);
-    setCount(res.data.totalPages - 1);
+    setCount(res.data.totalPages);
   }, [cat, filtersData, currentPage]);
 
   useEffect(() => {
