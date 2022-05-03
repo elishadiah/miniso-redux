@@ -26,7 +26,14 @@ const Drawer = () => {
     const res = await axios.get(url, {
       crossDomain: true,
     });
-    setCategories(res.data.body);
+    const categoryData = res.data.body.sort(
+      ({ descripcion: a }, { descripcion: b }) => {
+        if (a > b) return 1;
+        if (a < b) return -1;
+        return 0;
+      }
+    );
+    setCategories(categoryData);
   }, []);
   useEffect(() => {
     getCategories();
