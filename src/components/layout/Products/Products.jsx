@@ -30,7 +30,7 @@ const Products = (props) => {
   const getProducts = useCallback(async () => {
     const filterDataTo = Object.entries({
       ...filtersData,
-      page: currentPage-1,
+      page: 0,
       category: cat === 'all' ? false : cat,
       size: 15,
     })
@@ -44,7 +44,7 @@ const Products = (props) => {
     const res = await axios.get(
       cat
         ? `http://3.16.73.177:9080/public/products/?${filterDataTo}`
-        : 'http://3.16.73.177:9080/public/products/size/15/page/0?category=01',
+        : "http://3.16.73.177:9080/public/products/?size=15&page=0&category=01",
       {
         crossDomain: true,
       }
