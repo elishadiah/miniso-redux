@@ -58,7 +58,7 @@ const Header = () => {
                         CERRAR SESION
                       </Link>
                     </div>
-                    <div className={`nav-item`}>
+                    {/* <div className={`nav-item`}>
                       <Link
                         to='#'
                         className={classes.MenuItem}
@@ -66,7 +66,7 @@ const Header = () => {
                       >
                         New Item
                       </Link>
-                    </div>
+                    </div> */}
                   </div>
                 ) : (
                   <div className={classes.specialLinks}>

@@ -30,7 +30,7 @@ const Products = (props) => {
   const getProducts = useCallback(async () => {
     const filterDataTo = Object.entries({
       ...filtersData,
-      page: currentPage,
+      page: currentPage-1,
       category: cat === 'all' ? false : cat,
       size: 15,
     })
