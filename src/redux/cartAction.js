@@ -28,7 +28,7 @@ export const addProductToCart = (product, quantity, toast) => (dispatch) => {
     })
     .catch((error) => {
       console.log("...." + error?.message);
-      toast.error("Product added failed!");
+      toast.error("Error agregando el producto, tienes sesion iniciada?");
     });
 };
 
