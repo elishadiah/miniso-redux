@@ -5,8 +5,6 @@ import Drawer from '../../../Drawer/Drawer';
 import classes from './MainNavigation.module.css';
 
 const MainNavigation = ({ item }) => {
-  const cat = '04';
-
   return (
     <div className={classes.header}>
       <Container>
@@ -17,7 +15,7 @@ const MainNavigation = ({ item }) => {
             </li>
 
             <li>
-              <Link to={`/productoslista/${cat}`}>Comprar ahora</Link>
+              <Link to={`/productoslista/all`}>Comprar ahora</Link>
             </li>
             <li>
               <Link to={`/menos-de-q39`}>Menos de Q39</Link>

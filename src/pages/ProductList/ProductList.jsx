@@ -31,6 +31,7 @@ const images = {
   14: imageBaseUrl + '/electronicos-banner.png',
   15: imageBaseUrl + '/textil+-+banner.png',
   16: imageBaseUrl + '/bolsas+-+banner.png',
+  all: imageBaseUrl + '/comprarahora+-+banner.png',
 };
 const ProductList = ({ isPrice39 = false }) => {
   const { category: cat } = useParams();
@@ -79,7 +80,9 @@ const ProductList = ({ isPrice39 = false }) => {
   }, [getCategories]);
   const [image, setImage] = useState('');
 
-  useEffect(() => setImage(images[cat]), [cat]);
+  useEffect(() => {
+    setImage(images[cat]);
+  }, [cat]);
 
   const filterClear = () => {
     setFilters({ minPrice: null, maxPrice: null, name: '' });
@@ -116,7 +119,7 @@ const ProductList = ({ isPrice39 = false }) => {
                     onChange={handleFilters}
                   >
                     <Option value={'all'} key={Math.random()}>
-                      All
+                      Todos
                     </Option>
                     {categories.map((category) => (
                       <Option
