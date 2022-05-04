@@ -141,7 +141,7 @@ const Products = (props) => {
       <Container>
         {!isPrice39 && (
           <Title>
-            {currentCategory} - ({totalRows} products)
+            {currentCategory} - ({totalRows} Productos)
           </Title>
         )}
         <div>
