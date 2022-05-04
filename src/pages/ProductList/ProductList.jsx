@@ -44,6 +44,7 @@ const ProductList = ({ isPrice39 = false }) => {
     minPrice: 0,
     maxPrice: 0,
     name: '',
+    colleccion: '',
   });
   useEffect(() => {
     if (isPrice39) {
@@ -91,7 +92,7 @@ const ProductList = ({ isPrice39 = false }) => {
   }, [cat, isPrice39]);
 
   const filterClear = () => {
-    setFilters({ minPrice: null, maxPrice: null, name: '' });
+    setFilters({ minPrice: null, maxPrice: null, name: '', colleccion: '' });
     setSort('newest');
     history.push(`/productoslista/all`);
   };
@@ -135,6 +136,25 @@ const ProductList = ({ isPrice39 = false }) => {
                         {category.descripcion}
                       </Option>
                     ))}
+                  </Select1>
+                </FilterContainerResponsive>
+                <FilterContainerResponsive className='col-12 col-sm-6 col-md-2 '>
+                  <h6>Colleccion</h6>
+                  <Select1
+                    name='categoría'
+                    className='form-control'
+                    value={filters.colleccion || ''}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setFilters((prev) => ({
+                        ...prev,
+                        colleccion: value,
+                      }));
+                    }}
+                  >
+                    <Option value=''>Select</Option>
+                    <Option value='marvel'>Marvel</Option>
+                    <Option value='disney'>Disney</Option>
                   </Select1>
                 </FilterContainerResponsive>
                 <div className='row col-12 col-sm-6 col-md-3 gx-0 gx-sm-2 mb-2 mb-sm-0'>
