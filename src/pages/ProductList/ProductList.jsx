@@ -81,8 +81,14 @@ const ProductList = ({ isPrice39 = false }) => {
   const [image, setImage] = useState('');
 
   useEffect(() => {
+    const lest39Image =
+      'https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/menosde39+-+banner.png';
+    if (isPrice39) {
+      setImage(lest39Image);
+      return;
+    }
     setImage(images[cat]);
-  }, [cat]);
+  }, [cat, isPrice39]);
 
   const filterClear = () => {
     setFilters({ minPrice: null, maxPrice: null, name: '' });
