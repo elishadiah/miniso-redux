@@ -18,13 +18,13 @@ const Products = (props) => {
   const [count, setCount] = useState(0);
 
   const history = useHistory();
+  const pageNo = parseInt(getQueryParams('pageNo'));
 
   useEffect(() => {
-    const pageNo = parseInt(getQueryParams('pageNo'));
     if (pageNo) {
       setCurrentPage(pageNo);
     }
-  }, []);
+  }, [pageNo]);
 
   const getProducts = useCallback(async () => {
     const filterDataArray = Object.entries({
@@ -134,7 +134,8 @@ const Products = (props) => {
     }
 
     return formateProducts;
-  }, [formateProducts, sort]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formateProducts, sort, pageNo]);
 
   return (
     <div>
