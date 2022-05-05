@@ -1,21 +1,21 @@
 //import styled from "styled-components";
-import { Add, Remove } from "@mui/icons-material";
-import { Container } from "@mui/material";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
-import { toast } from "react-toastify";
-import ReactHelmet from "../../components/Seo/ReactHelmet";
-import { addProductToCart } from "../../redux/cartAction";
-import classes from "./Product.module.css";
+import { Add, Remove } from '@mui/icons-material';
+import { Container } from '@mui/material';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import ReactHelmet from '../../components/Seo/ReactHelmet';
+import { addProductToCart } from '../../redux/cartAction';
+import classes from './Product.module.css';
 //import sushi2 from "../../assets/card/sushi2.jpeg";
 //import sushi3 from "../../assets/card/sushi3.jpeg";
 
 const Product = () => {
   const location = useLocation();
-  const pk = location.pathname.split("/")[2];
-  const barra = location.pathname.split("/")[3];
+  const pk = location.pathname.split('/')[2];
+  const barra = location.pathname.split('/')[3];
 
   const [product, setProduct] = useState({});
   const [productosPkDto, setProductosPkDto] = useState({});
@@ -61,26 +61,26 @@ const Product = () => {
     return () => {};
   }, [product]);
 
-  useEffect(
-    () => {
-      const getProduct = async () => {
-        try {
-          const res = await axios.get(
-            pk && barra
-              ? `http://3.16.73.177:9080/public/products/pk?codeInt=${pk}&barra=${barra}`
-              : ""
-          );
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await axios.get(
+          pk && barra
+            ? `http://3.16.73.177:9080/public/products/pk?codeInt=${pk}&barra=${barra}`
+            : ''
+        );
 
-          setProduct(res.data.body);
-          setProductosPkDto(res.data.body.productosPkDto);
-        } catch {}
-      };
-      getProduct();
-      setIndexPhoto(0);
-    },
-    [pk],
-    [barra]
-  );
+        setProduct(res.data.body);
+        setProductosPkDto(res.data.body.productosPkDto);
+      } catch {}
+    };
+    getProduct();
+    setIndexPhoto(0);
+  }, [pk, barra]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pk, barra]);
 
   const increaseQuantity = () => {
     setQuantity((prev) => prev + 1);
@@ -94,17 +94,17 @@ const Product = () => {
     setIndexPhoto(index);
     const images = thumbsRefList.current.children;
     for (let i = 0; i < images.length; i++) {
-      images[i].className = images[i].className.replace("active", "");
+      images[i].className = images[i].className.replace('active', '');
     }
-    images[index].className = "active";
+    images[index].className = 'active';
   };
 
   const handleClick = () => {
     if (!isAuthenticated) {
-      toast.error("Para realizar una compra, Inicia Sesión primero");
+      toast.error('Para realizar una compra, Inicia Sesión primero');
       return;
     }
-    toast.success("Producto agregado al carrito");
+    toast.success('Producto agregado al carrito');
     dispatch(addProductToCart(product, quantity));
   };
 
@@ -132,12 +132,12 @@ const Product = () => {
 
               {/*<span className={classes.PriceD}>Q{product.precio}</span>*/}
             </div>
-            <hr style={{ color: "#999999", height: "1px" }} />
+            <hr style={{ color: '#999999', height: '1px' }} />
             <span className={classes.Price}>Q {product.precio}</span>
-            <hr style={{ color: "#999999", height: "1px" }} />
+            <hr style={{ color: '#999999', height: '1px' }} />
             <span className={classes.Title}> {productosPkDto.barra}</span>
             {/*<p>{item.content}</p>*/}
-            <hr style={{ color: "#999999", height: "1px" }} />
+            <hr style={{ color: '#999999', height: '1px' }} />
             {/*         <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
@@ -160,12 +160,12 @@ const Product = () => {
               <div className={classes.AmountContainer}>
                 <Remove
                   style={{
-                    cursor: "pointer",
+                    cursor: 'pointer',
                   }}
                   onClick={decreaseQuantity}
                 />
                 <span className={classes.Amount}>{quantity}</span>
-                <Add style={{ cursor: "pointer" }} onClick={increaseQuantity} />
+                <Add style={{ cursor: 'pointer' }} onClick={increaseQuantity} />
               </div>
             </div>
             <div className={classes.Thumb} ref={thumbsRefList}>
