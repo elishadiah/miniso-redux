@@ -58,15 +58,11 @@ const Header = () => {
                         CERRAR SESION
                       </Link>
                     </div>
-                    {/* <div className={`nav-item`}>
-                      <Link
-                        to='#'
-                        className={classes.MenuItem}
-                        onClick={logOut}
-                      >
+                    <div className={`nav-item`}>
+                      <Link to='#' className={classes.MenuItem}>
                         New Item
                       </Link>
-                    </div> */}
+                    </div>
                   </div>
                 ) : (
                   <div className={classes.specialLinks}>
