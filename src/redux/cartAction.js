@@ -1,9 +1,9 @@
-import axios from "axios";
-import { addProduct, clear, removeProduct, updateCart } from "./cartRedux";
+import axios from 'axios';
+import { addProduct, clear, removeProduct, updateCart } from './cartRedux';
 export const addProductToCart = (product, quantity, toast) => (dispatch) => {
   const { barra, codInt } = product.productosPkDto;
-  let username = localStorage.getItem("username");
-  let token = JSON.parse(localStorage.getItem("user")).access_token;
+  let username = localStorage.getItem('username');
+  let token = JSON.parse(localStorage.getItem('user')).access_token;
   let api = `http://3.16.73.177:9080/private/cart/add?userName=${username}`;
   //   let api = `/api/private/cart/add?userName=${username}`;
   let reqData = {
@@ -13,7 +13,7 @@ export const addProductToCart = (product, quantity, toast) => (dispatch) => {
   };
 
   axios({
-    method: "post",
+    method: 'post',
     url: api,
     widthCredentials: true,
     crossdomain: true,
@@ -24,17 +24,17 @@ export const addProductToCart = (product, quantity, toast) => (dispatch) => {
   })
     .then(() => {
       dispatch(addProduct({ ...product, amount: quantity }));
-      toast.success("¡Producto agregado correctamente!");
+      toast.success('¡Producto agregado correctamente!');
     })
     .catch((error) => {
-      console.log("...." + error?.message);
-      toast.error("Error agregando el producto, tienes sesion iniciada?");
+      console.log('....' + error?.message);
+      toast.error('Error agregando el producto, tienes sesion iniciada?');
     });
 };
 
 export const removeProductFromCart = (codInt, barra) => (dispatch) => {
-  let username = localStorage.getItem("username");
-  let token = JSON.parse(localStorage.getItem("user")).access_token;
+  let username = localStorage.getItem('username');
+  let token = JSON.parse(localStorage.getItem('user')).access_token;
   let api = `http://3.16.73.177:9080/private/cart/add?userName=${username}`;
   //   let api = `/api/private/cart/add?userName=${username}`;
   let reqData = {
@@ -44,7 +44,7 @@ export const removeProductFromCart = (codInt, barra) => (dispatch) => {
   };
 
   axios({
-    method: "post",
+    method: 'post',
     url: api,
     widthCredentials: true,
     crossdomain: true,
@@ -60,8 +60,8 @@ export const removeProductFromCart = (codInt, barra) => (dispatch) => {
 };
 export const updateCartFromServer = (codInt, barra) => async (dispatch) => {
   try {
-    let username = localStorage.getItem("username");
-    let token = JSON.parse(localStorage.getItem("user"))?.access_token;
+    let username = localStorage.getItem('username');
+    let token = JSON.parse(localStorage.getItem('user'))?.access_token;
     const api = `http://3.16.73.177:9080/private/cart/find?userName=${username}`;
     //   let api = `/api/private/cart/find?userName=${username}`;
 
@@ -75,8 +75,8 @@ export const updateCartFromServer = (codInt, barra) => async (dispatch) => {
       })
       .then(async (res) => {
         const items = res?.data?.body?.itemsDtos;
-        console.log(items);
-        const dataListPromise = items.map(
+        if (!items || !items.length > 0) return;
+        const dataListPromise = items?.map(
           async ({ codeInt, codeBarrra, amount }) => {
             const resData = await axios.get(
               `http://3.16.73.177:9080/public/products/pk?codeInt=${codeInt}&barra=${codeBarrra}`
@@ -86,15 +86,14 @@ export const updateCartFromServer = (codInt, barra) => async (dispatch) => {
           }
         );
         const dataWithResponse = await Promise.all(dataListPromise);
-        console.log(dataWithResponse);
-        const allProducts = dataWithResponse.map((item) => {
+        const allProducts = dataWithResponse?.map((item) => {
           item.data.body.amount = item.amount;
           return item.data.body;
         });
         dispatch(updateCart(allProducts));
       });
   } catch (error) {
-    console.log("err-----", error);
+    console.log('err-----', error);
   }
 };
 export const clearCart = () => async (dispatch) => {

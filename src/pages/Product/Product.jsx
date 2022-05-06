@@ -105,7 +105,7 @@ const Product = () => {
       return;
     }
     toast.success('Producto agregado al carrito');
-    dispatch(addProductToCart(product, quantity));
+    dispatch(addProductToCart(product, quantity, toast));
   };
 
   let history = useHistory();
