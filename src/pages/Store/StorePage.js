@@ -77,10 +77,11 @@ const StorePage = ({ noTitle = false }) => {
     {
       id: 9,
       title: "Guatemala",
-      text1: "C.C. La Eskala Roosvelt",
+      text1: "C.C. Miraflores",
       //text2: "Nashua, NH 03060",
       timeText: "Abierto de 9:00 AM a 8:00 p.m",
-      image: "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/3.png",
+      image:
+        "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Miraflores.jpg",
     },
     {
       id: 10,
@@ -111,6 +112,24 @@ const StorePage = ({ noTitle = false }) => {
     },
     {
       id: 12,
+      title: "Guatemala",
+      text1: "Portales",
+      //text2: "Nashua, NH 03060",
+      timeText: "Abierto de 9:00 AM a 8:00 p.m",
+      image:
+        "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Portales.jpg",
+    },
+    {
+      id: 13,
+      title: "Guatemala",
+      text1: "Pradera zona 10",
+      //text2: "Nashua, NH 03060",
+      timeText: "Abierto de 9:00 AM a 8:00 p.m",
+      image:
+        "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Pradera+Zona+10.jpg",
+    },
+    {
+      id: 14,
       title: "Zacapa",
       text1: "Pradera Zacapa",
       //text2: "Nashua, NH 03060",
