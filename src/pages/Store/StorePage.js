@@ -27,7 +27,7 @@ const StorePage = ({ noTitle = false }) => {
       //text2: "Nashua, NH 03060",
       timeText: "Abierto de 9:00 AM a 8:00 p.m",
       image:
-        "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Xela+.jpg",
+        "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Xela.jpg",
     },
     {
       id: 4,
@@ -108,7 +108,7 @@ const StorePage = ({ noTitle = false }) => {
       //text2: "Nashua, NH 03060",
       timeText: "Abierto de 9:00 AM a 8:00 p.m",
       image:
-        "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Metrocentro.JPG",
+        "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Metrocentro.jpg",
     },
     {
       id: 12,
