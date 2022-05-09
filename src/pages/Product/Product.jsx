@@ -104,7 +104,6 @@ const Product = () => {
       toast.error('Para realizar una compra, Inicia Sesión primero');
       return;
     }
-    toast.success('Producto agregado al carrito');
     dispatch(addProductToCart(product, quantity, toast));
   };
 
