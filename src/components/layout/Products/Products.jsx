@@ -9,7 +9,15 @@ import usePagination from './Pagination';
 import Product from './Product';
 
 const Products = (props) => {
-  const { cat, filters, filtersData, sort, currentCategory, isPrice39 } = props;
+  const {
+    cat,
+    filters,
+    filtersData,
+    sort,
+    currentCategory,
+    isPrice39,
+    countShow = false,
+  } = props;
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState([]);
   const [formateProducts, setFormateProducts] = useState([]);
@@ -140,7 +148,7 @@ const Products = (props) => {
   return (
     <div>
       <Container>
-        {!isPrice39 && (
+        {countShow && (
           <Title>
             {currentCategory} - ({totalRows} Productos)
           </Title>

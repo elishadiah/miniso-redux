@@ -8,6 +8,7 @@ import { Bottom, Contenitrice, Info, Wrapper } from './ProductList.styled';
 
 const imageUrl =
   'https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/lomasnuevo+-+banner.png';
+
 const NewProductList = () => {
   const { category: cat } = useParams();
   useEffect(() => {

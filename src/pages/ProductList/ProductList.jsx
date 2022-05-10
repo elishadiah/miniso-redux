@@ -33,11 +33,10 @@ const images = {
   16: imageBaseUrl + '/bolsas+-+banner.png',
   all: imageBaseUrl + '/comprarahora+-+banner.png',
 };
-const ProductList = ({ isPrice39 = false }) => {
+const ProductList = () => {
   const { category: cat } = useParams();
   useEffect(() => {
     window.scrollTo(0, 0);
-    console.log(cat);
   }, [cat]);
 
   const [filters, setFilters] = useState({
@@ -46,11 +45,6 @@ const ProductList = ({ isPrice39 = false }) => {
     name: '',
     colleccion: '',
   });
-  useEffect(() => {
-    if (isPrice39) {
-      setFilters((prev) => ({ ...prev, maxPrice: 39 }));
-    }
-  }, [isPrice39]);
 
   const [sort, setSort] = useState('newest');
   const history = useHistory();
@@ -82,14 +76,8 @@ const ProductList = ({ isPrice39 = false }) => {
   const [image, setImage] = useState('');
 
   useEffect(() => {
-    const lest39Image =
-      'https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/menosde39+-+banner.png';
-    if (isPrice39) {
-      setImage(lest39Image);
-      return;
-    }
     setImage(images[cat]);
-  }, [cat, isPrice39]);
+  }, [cat]);
 
   const filterClear = () => {
     setFilters({ minPrice: null, maxPrice: null, name: '', colleccion: '' });
@@ -110,136 +98,133 @@ const ProductList = ({ isPrice39 = false }) => {
             <br />
             <br />
             <p></p>
-            {!isPrice39 && (
-              <Top className='row gx-0 gx-sm-3'>
-                {/*<TopButton>CONTINUE SHOPPING</TopButton>*/}
-                {/* <TopTexts><TopText>No. Resultados</TopText></TopTexts> */}
 
-                {/* I have another comment, Could you add titles to the filters? for the first it would be "Categorías:" for the Second "" for the Third "Precio Máximo:" for the search "Buscador de Productos:" and for the fifth "Ordena por precio:" */}
+            <Top className='row gx-0 gx-sm-3'>
+              {/*<TopButton>CONTINUE SHOPPING</TopButton>*/}
+              {/* <TopTexts><TopText>No. Resultados</TopText></TopTexts> */}
 
-                <FilterContainerResponsive className='col-12 col-sm-6 col-md-2 '>
-                  <h6>Categorías</h6>
-                  <Select1
-                    value={cat}
-                    name='categoría'
-                    className='form-control'
-                    onChange={handleFilters}
-                  >
-                    <Option value={'all'} key={Math.random()}>
-                      Todos
+              {/* I have another comment, Could you add titles to the filters? for the first it would be "Categorías:" for the Second "" for the Third "Precio Máximo:" for the search "Buscador de Productos:" and for the fifth "Ordena por precio:" */}
+
+              <FilterContainerResponsive className='col-12 col-sm-6 col-md-2 '>
+                <h6>Categorías</h6>
+                <Select1
+                  value={cat}
+                  name='categoría'
+                  className='form-control'
+                  onChange={handleFilters}
+                >
+                  <Option value={'all'} key={Math.random()}>
+                    Todos
+                  </Option>
+                  {categories.map((category) => (
+                    <Option value={category.codCatUno} key={category.codCatUno}>
+                      {category.descripcion}
                     </Option>
-                    {categories.map((category) => (
-                      <Option
-                        value={category.codCatUno}
-                        key={category.codCatUno}
-                      >
-                        {category.descripcion}
-                      </Option>
-                    ))}
-                  </Select1>
-                </FilterContainerResponsive>
-                <FilterContainerResponsive className='col-12 col-sm-6 col-md-2 '>
-                  <h6>Colleccion</h6>
-                  <Select1
-                    name='categoría'
-                    className='form-control'
-                    value={filters.colleccion || ''}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      setFilters((prev) => ({
-                        ...prev,
-                        colleccion: value,
-                      }));
-                    }}
-                  >
-                    <Option value=''>Select</Option>
-                    <Option value='marvel'>Marvel</Option>
-                    <Option value='disney'>Disney</Option>
-                  </Select1>
-                </FilterContainerResponsive>
-                <div className='row col-12 col-sm-6 col-md-3 gx-0 gx-sm-2 mb-2 mb-sm-0'>
-                  <div className='col-6'>
-                    <h6>Precio Mínimo:</h6>
+                  ))}
+                </Select1>
+              </FilterContainerResponsive>
+              <FilterContainerResponsive className='col-12 col-sm-6 col-md-2 '>
+                <h6>Colleccion</h6>
+                <Select1
+                  name='categoría'
+                  className='form-control'
+                  value={filters.colleccion || ''}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setFilters((prev) => ({
+                      ...prev,
+                      colleccion: value,
+                    }));
+                  }}
+                >
+                  <Option value=''>Select</Option>
+                  <Option value='marvel'>Marvel</Option>
+                  <Option value='disney'>Disney</Option>
+                </Select1>
+              </FilterContainerResponsive>
+              <div className='row col-12 col-sm-6 col-md-3 gx-0 gx-sm-2 mb-2 mb-sm-0'>
+                <div className='col-6'>
+                  <h6>Precio Mínimo:</h6>
 
-                    <PriceInput
-                      type='number'
-                      name='minPrice'
-                      placeholder='min'
-                      className='form-control'
-                      value={filters.minPrice || ''}
-                      onChange={(e) => {
-                        const value = parseInt(e.target.value);
-                        if (value >= 0) {
-                          setFilters((prev) => ({
-                            ...prev,
-                            minPrice: value,
-                          }));
-                        }
-                      }}
-                    />
-                  </div>
-                  <div className='col-6'>
-                    <h6>Precio Máximo:</h6>
-                    <PriceInput
-                      type='number'
-                      name='maxPrice'
-                      placeholder='max'
-                      className='form-control '
-                      value={filters.maxPrice || ''}
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        if (parseInt(value) >= 0) {
-                          setFilters((prev) => ({
-                            ...prev,
-                            maxPrice: parseInt(value),
-                          }));
-                        }
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className='col-12 col-sm-6 mb-1 mb-sm-0 col-md-3 '>
-                  <h6>Buscador de Productos:</h6>
                   <PriceInput
-                    type='text'
-                    placeholder='search...'
+                    type='number'
+                    name='minPrice'
+                    placeholder='min'
                     className='form-control'
-                    value={filters.name}
+                    value={filters.minPrice || ''}
                     onChange={(e) => {
-                      setFilters((prev) => ({
-                        ...prev,
-                        name: e.target.value.toUpperCase(),
-                      }));
+                      const value = parseInt(e.target.value);
+                      if (value >= 0) {
+                        setFilters((prev) => ({
+                          ...prev,
+                          minPrice: value,
+                        }));
+                      }
                     }}
                   />
                 </div>
-                <Sortby className='col-12 col-sm-6 col-md-2 '>
-                  <h6>Ordena por:</h6>
-                  <Select1
-                    onChange={(e) => setSort(e.target.value)}
-                    className='form-control'
-                    value={sort}
-                  >
-                    <Option value='newest'>Ordenar </Option>
-                    <Option value='desc'>Precio más alto</Option>
-                    <Option value='asc'>Precio más bajo</Option>
-                  </Select1>
-                </Sortby>
-                <div className='col-md-2'>
-                  <h6 style={{ visibility: 'hidden' }}>h</h6>
-                  <Button onClick={filterClear}>Clear</Button>
+                <div className='col-6'>
+                  <h6>Precio Máximo:</h6>
+                  <PriceInput
+                    type='number'
+                    name='maxPrice'
+                    placeholder='max'
+                    className='form-control '
+                    value={filters.maxPrice || ''}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      if (parseInt(value) >= 0) {
+                        setFilters((prev) => ({
+                          ...prev,
+                          maxPrice: parseInt(value),
+                        }));
+                      }
+                    }}
+                  />
                 </div>
-              </Top>
-            )}
+              </div>
+              <div className='col-12 col-sm-6 mb-1 mb-sm-0 col-md-3 '>
+                <h6>Buscador de Productos:</h6>
+                <PriceInput
+                  type='text'
+                  placeholder='search...'
+                  className='form-control'
+                  value={filters.name}
+                  onChange={(e) => {
+                    setFilters((prev) => ({
+                      ...prev,
+                      name: e.target.value.toUpperCase(),
+                    }));
+                  }}
+                />
+              </div>
+              <Sortby className='col-12 col-sm-6 col-md-2 '>
+                <h6>Ordena por:</h6>
+                <Select1
+                  onChange={(e) => setSort(e.target.value)}
+                  className='form-control'
+                  value={sort}
+                >
+                  <Option value='newest'>Ordenar </Option>
+                  <Option value='desc'>Precio más alto</Option>
+                  <Option value='asc'>Precio más bajo</Option>
+                </Select1>
+              </Sortby>
+              <div className='col-md-2'>
+                <h6 style={{ visibility: 'hidden' }}>h</h6>
+                <Button onClick={filterClear}>Clear</Button>
+              </div>
+            </Top>
+
             <Bottom>
               <Info>
                 <Products
                   cat={cat ? cat : 'all'}
-                  isPrice39={isPrice39}
                   filters={{}}
                   filtersData={filters}
                   sort={sort}
                   currentCategory={currentCategory || ''}
+                  countShow={true}
                 />
               </Info>
             </Bottom>
