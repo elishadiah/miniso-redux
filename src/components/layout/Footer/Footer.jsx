@@ -50,9 +50,9 @@ const Footer = () => {
               <h5 className='font-weight-bold text-uppercase mt-3 mb-4'>
                 Categorías
               </h5>
-              <div className='d-flex ' style={{ gap: '15px' }}>
+              <div className='footer-categories '>
                 {formateCategories.map((items) => (
-                  <ul className='category_list' key={Math.random()}>
+                  <ul className='category_list mb-0' key={Math.random()}>
                     {items.map((category) => (
                       <li key={category.codCatUno}>
                         <Link to={`/productoslista/${category.codCatUno}`}>
@@ -64,7 +64,7 @@ const Footer = () => {
                 ))}
               </div>
             </div>
-            <div className='col-xl-4 col-lg-4 col-md-12 col-sm-12  contactDiv'>
+            <div className='col-xxl-3 col-xl-4 col-lg-4 col-md-12 col-sm-12  contactDiv'>
               <h5 className='font-weight-bold text-uppercase mt-3 mb-4'>
                 Contacto
               </h5>
