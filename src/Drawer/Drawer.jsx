@@ -54,13 +54,44 @@ const Drawer = () => {
         onClose={toggleDrawer(false)}
         onClick={toggleDrawer(false)}
         PaperProps={{
-          sx: { width: '200px' },
+          sx: { width: '250px' },
         }}
       >
         <div>
           <Box className={classes.diBox} textAlign='left' p={1}>
             <h3>Categorías</h3>
           </Box>
+
+          <div className={classes.menu}>
+            <ul className={classes.menuList}>
+              <li>
+                <Link className={classes.menuLink} to={`/productoslista/all`}>
+                  Comprar ahora
+                </Link>
+              </li>
+              <li>
+                <Link className={classes.menuLink} to={`/menos-de-q39`}>
+                  Menos de Q39
+                </Link>
+              </li>
+              <li>
+                <Link className={classes.menuLink} to={`/lo-más-nuevo`}>
+                  Lo más nuevo
+                </Link>
+              </li>
+              <li>
+                <Link className={classes.menuLink} to='/viewstores'>
+                  Tiendas
+                </Link>
+              </li>
+              <li>
+                <Link className={classes.menuLink} to='/contactanos'>
+                  Contáctanos
+                </Link>
+              </li>
+            </ul>
+          </div>
+
           <List>
             {/*            <Link to='/login' className={classes.daLink}>
               <div className={classes.MenuItem}>INICIAR SESIÓN</div>
@@ -71,7 +102,6 @@ const Drawer = () => {
 
             <ListItem>
               <ListItemText>
-                {' '}
                 {categories.map((cat) => (
                   <Link
                     to={`/productoslista/${cat.codCatUno}`}
