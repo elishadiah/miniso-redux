@@ -10,7 +10,7 @@ const OrderHistory = () => {
     axios
       .get(url)
       .then((res) => {
-        setOrders(res.data?.body?.[0]?.orders);
+        setOrders(res.data?.body?.[0]?.orders || []);
         console.log(res.data?.body);
       })
       .catch((e) => console.log(e));
