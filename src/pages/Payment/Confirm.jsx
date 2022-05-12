@@ -1,54 +1,53 @@
-import axios from "axios";
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { toast } from "react-toastify";
-import { clearCart } from "../../redux/cartAction";
-import "./Confirm.css";
-import "./Form.css";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { clearCart } from '../../redux/cartAction';
+import './Confirm.css';
+import './Form.css';
 
-export class Confirm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: false,
-    };
-  }
+export const Confirm = (props) => {
+  const {
+    values: { cardname, cardnumber, date, cuotas },
+    nextStep,
+    prevStep,
+  } = props;
 
-  continue = (e) => {
-    if (!this.props.isAuthenticated) {
-      toast.error("Para realizar una compra, Inicia Sesión primero");
+  const { isAuthenticated } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState(false);
+  const continueStep = (e) => {
+    if (!isAuthenticated) {
+      toast.falseerror('Para realizar una compra, Inicia Sesión primero');
       return;
     }
-    this.setState(
-      {
-        loading: true,
-      },
-      () => {
-        e.preventDefault();
-        this.confirmPayment()
-          .then(() => {
-            this.setState({ loading: false });
-          })
-          .catch((e) => {
-            this.setState({ loading: false });
-          });
-      }
-    );
+
+    setLoading(true);
+
+    confirmPayment()
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((e) => {
+        setLoading(false);
+      });
   };
 
-  back = (e) => {
+  const backStep = (e) => {
     e.preventDefault();
-    this.props.prevStep();
+    prevStep();
   };
 
-  confirmPayment = async () => {
-    const { cardname, cardnumber, codigo, date, cuotas } = this.props.values;
+  const confirmPayment = async () => {
+    const { cardname, cardnumber, codigo, date, cuotas } = props.values;
 
-    let username = localStorage.getItem("username");
-    let token = JSON.parse(localStorage.getItem("user")).access_token;
+    let username = localStorage.getItem('username');
+    let token = JSON.parse(localStorage.getItem('user')).access_token;
 
     var config = {
-      method: "post",
+      method: 'post',
       url: `http://3.16.73.177:9080/private/cart/end?userName=${username}`,
       headers: { Authorization: `Bearer ${token}`, crossDomain: true },
       data: {
@@ -56,49 +55,45 @@ export class Confirm extends Component {
         numCart: cardnumber,
         cvv: codigo,
         fechaExpira: date,
-        ip: "190.56.100.90",
+        ip: '190.56.100.90',
         cuota: cuotas,
       },
     };
+    setLoading(true);
 
     console.log(config);
-    const respuesta = await axios(config)
-      .then(function (response) {
-        return response.data;
-      })
-      .catch(function (error) {
-        toast.error("Error al realizar el pago");
-        this.setState({
-          loading: false,
-        });
-      });
+    try {
+      const respuesta = await axios(config);
 
-    console.log(respuesta);
-    if (respuesta && respuesta.ok) {
-      this.props.nextStep();
-      this.props.clearCart();
+      console.log(respuesta);
+      if (respuesta.data && respuesta.data.ok) {
+        nextStep();
+        dispatch(clearCart());
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('Error al realizar el pago');
+      setLoading(false);
     }
   };
 
-  render() {
-    const {
-      values: { cardname, cardnumber, codigo, date, cuotas },
-    } = this.props;
-
-    return (
-      <div className="form-container">
-        <h3 className="mb-5 text-center">Confirmar Datos</h3>
-        <ul class="list-group">
-          <li class="list-group-item">
-            Nombre del titular de la tarjeta: {cardname}
-          </li>
-          <li class="list-group-item">Numero de Tarjeta: {cardnumber}</li>
-          <li class="list-group-item">Código de Seguridad (CVV): ***</li>
-          <li class="list-group-item">Fecha de Expiración: {date}</li>
-          <li class="list-group-item">
-            Cantidad de cuotas seleccionadas: {cuotas}
-          </li>
-          {/*<li class='list-group-item'>Name: {name}</li>
+  useEffect(() => {
+    return () => {};
+  }, []);
+  return (
+    <div className='form-container'>
+      <h3 className='mb-5 text-center'>Confirmar Datos</h3>
+      <ul class='list-group'>
+        <li class='list-group-item'>
+          Nombre del titular de la tarjeta: {cardname}
+        </li>
+        <li class='list-group-item'>Numero de Tarjeta: {cardnumber}</li>
+        <li class='list-group-item'>Código de Seguridad (CVV): ***</li>
+        <li class='list-group-item'>Fecha de Expiración: {date}</li>
+        <li class='list-group-item'>
+          Cantidad de cuotas seleccionadas: {cuotas}
+        </li>
+        {/*<li class='list-group-item'>Name: {name}</li>
           <li class='list-group-item'>Email: {email} </li>
           <li class='list-group-item'>Phone Number: {phone}</li>
           <li class='list-group-item'>Password: {password}</li>
@@ -111,36 +106,25 @@ export class Confirm extends Component {
           <li class='list-group-item'>
             Github URL: <a href={github}>{github}</a>
     </li>*/}
-        </ul>
-        <br />
-        <div className="text-center">
-          {this.state.loading && (
-            <span className="spinner-border spinner-border-lg"></span>
-          )}
+      </ul>
+      <br />
+      <div className='text-center'>
+        {loading && <span className='spinner-border spinner-border-lg'></span>}
+      </div>
+      <div className='row justify-content-sm-between'>
+        <div className='col-12 col-sm-6'>
+          <button className='btn2' onClick={backStep}>
+            Atrás
+          </button>
         </div>
-        <div className="row justify-content-sm-between">
-          <div className="col-12 col-sm-6">
-            <button className="btn2" onClick={this.back}>
-              Atrás
-            </button>
-          </div>
-          <div className="col-12 col-sm-6 confirmButton d-sm-flex justify-content-sm-end ">
-            <button
-              className="btn1"
-              onClick={this.continue}
-              disabled={this.state.loading}
-            >
-              Realizar Pago
-            </button>
-          </div>
+        <div className='col-12 col-sm-6 confirmButton d-sm-flex justify-content-sm-end '>
+          <button className='btn1' onClick={continueStep} disabled={loading}>
+            Realizar Pago
+          </button>
         </div>
       </div>
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return { isAuthenticated: state.user.isAuthenticated };
+    </div>
+  );
 };
 
-export default connect(mapStateToProps, { clearCart })(Confirm);
+export default Confirm;

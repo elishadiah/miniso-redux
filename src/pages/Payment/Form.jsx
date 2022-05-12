@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import AccountSetup from './AccountSetup';
 //import SocialProfiles from "./SocialProfiles";
 import Confirm from './Confirm';
 import Success from './Success';
 
-export class Form extends Component {
-  state = {
-    step: 1,
+export const Form = () => {
+  const [state, setState] = useState({
     name: '',
     email: '',
     phone: '',
@@ -15,58 +14,50 @@ export class Form extends Component {
     twitter: '',
     github: '',
     cuotas: 1,
+  });
+
+  const [step, setStep] = useState(1);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    return () => {};
+  }, [step]);
+
+  const nextStep = () => {
+    setStep((prev) => prev + 1);
   };
 
-  nextStep = () => {
-    const { step } = this.state;
-    this.setState({ step: step + 1 });
+  const prevStep = () => {
+    setStep((prev) => prev - 1);
   };
 
-  prevStep = () => {
-    const { step } = this.state;
-    this.setState({ step: step - 1 });
-  };
-
-  inputChange = (input) => (e) => {
-    this.setState({
+  const inputChange = (input) => (e) => {
+    setState((prev) => ({
+      ...prev,
       [input]: e.target.value,
-    });
+    }));
   };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextState.step !== this.state.step;
-  }
+  const {
+    cardname,
+    cardnumber,
+    codigo,
+    date,
+    cuotas /*name, email, phone, password, facebook, twitter, github*/,
+  } = state;
+  const values = { cardname, cardnumber, codigo, date, cuotas };
 
-  componentDidMount(...p) {
-    window.scrollTo(0, 0);
-  }
+  switch (step) {
+    case 1:
+      return (
+        <AccountSetup
+          nextStep={nextStep}
+          inputChange={inputChange}
+          values={values}
+        />
+      );
 
-  componentDidUpdate(...p) {
-    window.scrollTo(0, 0);
-  }
-
-  render() {
-    const { step } = this.state;
-    const {
-      cardname,
-      cardnumber,
-      codigo,
-      date,
-      cuotas /*name, email, phone, password, facebook, twitter, github*/,
-    } = this.state;
-    const values = { cardname, cardnumber, codigo, date, cuotas };
-
-    switch (step) {
-      case 1:
-        return (
-          <AccountSetup
-            nextStep={this.nextStep}
-            inputChange={this.inputChange}
-            values={values}
-          />
-        );
-
-      /*      case 2:
+    /*      case 2:
         return (
           <SocialProfiles
             nextStep={this.nextStep}
@@ -75,20 +66,15 @@ export class Form extends Component {
             values={values}
           />
         );*/
-      case 2:
-        return (
-          <Confirm
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            values={values}
-          />
-        );
-      case 3:
-        return <Success />;
-      default:
-        return null;
-    }
+    case 2:
+      return (
+        <Confirm nextStep={nextStep} prevStep={prevStep} values={values} />
+      );
+    case 3:
+      return <Success />;
+    default:
+      return null;
   }
-}
+};
 
 export default Form;

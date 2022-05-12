@@ -1,8 +1,13 @@
-import React from "react";
-import Form from "./Form";
-import "./Form.css";
+import React, { useEffect } from 'react';
+import Form from './Form';
+import './Form.css';
 
 const Payment = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    return () => {};
+  }, []);
+
   return (
     <div>
       <br />
