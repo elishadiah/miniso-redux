@@ -1,11 +1,12 @@
-import React, { useState, useRef } from "react";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
-import "./Register.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import isEmail from "validator/lib/isEmail";
-import AuthService from "../../services/auth.service";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import CheckButton from 'react-validation/build/button';
+import Form from 'react-validation/build/form';
+import Input from 'react-validation/build/input';
+import isEmail from 'validator/lib/isEmail';
+import AuthService from '../../services/auth.service';
+import './Register.css';
 
 const required = (value) => {
   if (!value) {
@@ -51,17 +52,19 @@ const Register = (props) => {
   const form = useRef();
   const checkBtn = useRef();
 
-  const [names, setNames] = useState("");
-  const [lastname, setLastName] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [nit, setNit] = useState("");
-  const [dui, setDui] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [password, setPassword] = useState("");
+  const history = useHistory();
+
+  const [names, setNames] = useState('');
+  const [lastname, setLastName] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [nit, setNit] = useState('');
+  const [dui, setDui] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [password, setPassword] = useState('');
   const [successful, setSuccessful] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   const onChangeNames = (e) => {
     const names = e.target.value;
@@ -111,7 +114,7 @@ const Register = (props) => {
   const handleRegister = (e) => {
     e.preventDefault();
 
-    setMessage("");
+    setMessage('');
     setSuccessful(false);
 
     form.current.validateAll();
@@ -131,6 +134,7 @@ const Register = (props) => {
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
+          history.push('/login');
         },
         (error) => {
           const resMessage =
@@ -277,7 +281,7 @@ const Register = (props) => {
               <div className='form-group'>
                 <div
                   className={
-                    successful ? "alert alert-success" : "alert alert-danger"
+                    successful ? 'alert alert-success' : 'alert alert-danger'
                   }
                   role='alert'
                 >
@@ -285,7 +289,7 @@ const Register = (props) => {
                 </div>
               </div>
             )}
-            <CheckButton style={{ display: "none" }} ref={checkBtn} />
+            <CheckButton style={{ display: 'none' }} ref={checkBtn} />
           </Form>
         </div>
       </div>
