@@ -1,6 +1,6 @@
 import { Container, Pagination } from '@mui/material';
 import axios from 'axios';
-import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import getQueryParams from '../../../utilities/getGetQueryParams';
@@ -187,7 +187,7 @@ const Products = (props) => {
   );
 };
 
-export default memo(Products);
+export default Products;
 
 const Contenitrice = styled.div`
   display: grid;
