@@ -31,10 +31,10 @@ export const Form = () => {
     setStep((prev) => prev - 1);
   };
 
-  const inputChange = (input) => (e) => {
+  const inputChange = (input, value) => {
     setState((prev) => ({
       ...prev,
-      [input]: e.target.value,
+      [input]: value,
     }));
   };
 
