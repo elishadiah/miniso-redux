@@ -25,6 +25,7 @@ import RegalosGratis from './pages/Categories/RegalosGratis';
 import Textil from './pages/Categories/Textil';
 import Collections from './pages/Collections';
 import ContactUs from './pages/ContactUs';
+import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 //import BoardModerator from "./components/board-moderator.component";
 //import BoardAdmin from "./components/board-admin.component";
 import HomePage from './pages/HomePage';
@@ -36,6 +37,7 @@ import Payment from './pages/Payment/Payment';
 import Product from './pages/Product/Product';
 import ProductList from './pages/ProductList/ProductList';
 import Register from './pages/Register/Register';
+import ResetPassword from './pages/ResetPassword/ResetPassword';
 import Sale from './pages/Sale';
 import ShopNow from './pages/ShopNow';
 import StorePage from './pages/Store/StorePage';
@@ -149,6 +151,12 @@ const App = () => {
         <Route path='/login'>
           <Login />
           {/*{user ? <Redirect to='/' /> : <Login />}*/}
+        </Route>
+        <Route path='/forgot-password'>
+          <ForgotPassword />
+        </Route>
+        <Route path='/reset-password'>
+          <ResetPassword />
         </Route>
         <Route path='/register'>
           <Register />
