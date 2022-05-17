@@ -1,8 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import CategoryItem from "./CategoryItem";
-import { categories } from "../../../data";
-import { Container } from "@mui/material";
+import { Container } from '@mui/material';
+import React, { useMemo } from 'react';
+import styled from 'styled-components';
+import { categories } from '../../../data';
+import useWindowSize from '../../../utilities/useWindowSize';
+import CategoryItem from './CategoryItem';
+import categoryImage from './image-1.png';
 
 const Wrapper = styled.div`
   padding-top: 50px;
@@ -32,6 +34,21 @@ const Contenitrice = styled.div`
 `;
 
 const Categories = () => {
+  const { width } = useWindowSize();
+
+  const lastCat = useMemo(() => {
+    const item = {
+      id: 10,
+      img: 'https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/categoria10.png',
+      title: 'Librería',
+      cat: '12',
+    };
+    if (width <= 640) {
+      item.img = categoryImage;
+    }
+    return item;
+  }, [width]);
+
   return (
     <Container>
       <Wrapper>
@@ -42,6 +59,7 @@ const Categories = () => {
           {categories.map((item) => (
             <CategoryItem item={item} key={item.id} />
           ))}
+          <CategoryItem item={lastCat} key={Math.random()} />
         </Contenitrice>
       </Wrapper>
     </Container>
