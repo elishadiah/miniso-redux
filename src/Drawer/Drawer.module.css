@@ -3,7 +3,7 @@ a.link {
   color: #000000d4;
   font-size: 13px;
   transition: all 0.3s;
-  display: inline-block;
+  display: block;
   margin-bottom: 20px;
 }
 a.link:hover {
