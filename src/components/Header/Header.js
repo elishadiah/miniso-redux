@@ -2,12 +2,13 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Container } from '@mui/material';
 //MATERIAL-UI FIRSTNAVIGATIONBAR
 import Badge from '@mui/material/Badge';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    //Routes,
-    Link
+  //Routes,
+  Link,
 } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import classes from '../../FirstNavigation.module.css';
@@ -17,7 +18,7 @@ import AuthService from '../../services/auth.service';
 
 const Header = () => {
   const quantity = useSelector((state) => state.cart.quantity);
-
+  const [minisoNumber, setMinisoNumber] = useState('');
   const { currentUser, isAuthenticated } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const logOut = (e) => {
@@ -26,9 +27,16 @@ const Header = () => {
     dispatch(loginSuccess({}));
     dispatch(clear());
   };
+  useEffect(() => {
+    const username = localStorage.getItem('username');
+    const url = `http://3.16.73.177:9080/public/users/lover?userName=${username}`;
+    axios
+      .get(url)
+      .then((res) => setMinisoNumber(res?.data?.body || ''))
+      .catch((e) => console.log(e));
+  }, []);
   return (
     <div>
-      {' '}
       <header className={classes.header}>
         <Container>
           <div className={classes.container_bar}>
@@ -58,11 +66,16 @@ const Header = () => {
                         CERRAR SESION
                       </Link>
                     </div>
-                    {/* <div className={`nav-item`}>
-                      <Link to='#' className={classes.MenuItem}>
-                        New Item
-                      </Link>
-                    </div> */}
+                    {minisoNumber && (
+                      <div
+                        className={`nav-item`}
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        <Link to='#' className={classes.MenuItem}>
+                          {minisoNumber}
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 ) : (
                   <div className={classes.specialLinks}>
