@@ -1,8 +1,10 @@
+import axios from 'axios';
 import React, { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import CheckButton from 'react-validation/build/button';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
+import getGetQueryParams from '../../utilities/getGetQueryParams';
 import './ResetPassword.css';
 
 const passwordValidation = (value) => {
@@ -36,6 +38,7 @@ const confirmPasswordValidation = (value, props) => {
 const ResetPassword = () => {
   const form = useRef();
   const checkBtn = useRef();
+  const token = getGetQueryParams('token');
 
   const [isPassShow, setIsPassShow] = useState(false);
 
@@ -44,15 +47,27 @@ const ResetPassword = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setMessage('');
     setLoading(true);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-      toast.success('¡Guardar contraseña!');
-      setLoading(false);
+      try {
+        const url = `http://3.16.73.177:9080/public/reset_password`;
+        const formData = new FormData();
+        formData.append('token', token);
+        formData.append('password', password);
+        const res = await axios.post(url, formData);
+        setLoading(false);
+        if (res.data.ok) {
+          toast.success('¡Guardar contraseña!');
+        }
+      } catch (error) {
+        toast.error(error?.response?.data?.message || 'Failed');
+        setLoading(false);
+      }
     } else {
       setLoading(false);
     }

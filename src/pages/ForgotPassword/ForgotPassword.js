@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -25,17 +26,29 @@ const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setMessage('');
     setLoading(true);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-      toast.success(
-        'Enviamos un correo electrónico,por favor revisa tu bandeja de entrada'
-      );
-      history.push('/reset-password');
+      try {
+        const url = `http://3.16.73.177:9080/public/users/forgot_password?userName=${username}&email=${email}`;
+        const res = await axios.get(url);
+        console.log(res);
+        if (res.data.ok) {
+          toast.success(
+            'Enviamos un correo electrónico,por favor revisa tu bandeja de entrada'
+          );
+        }
+        setLoading(false);
+      } catch (error) {
+        toast.error(
+          'Ingresa los datos solicitados correctamente para cambiar tu contraseña'
+        );
+        setLoading(false);
+      }
     } else {
       setLoading(false);
     }
