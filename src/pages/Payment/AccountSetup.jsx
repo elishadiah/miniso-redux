@@ -55,16 +55,16 @@ export const AccountSetup = (props) => {
     } else {
       const errorData = {};
       if (!values.cardname) {
-        errorData.name = 'This field is required';
+        errorData.name = ' Este campo es requerido!';
       }
       if (!values.cardnumber) {
-        errorData.number = 'This field is required';
+        errorData.number = ' Este campo es requerido!';
       }
       if (!values.codigo) {
-        errorData.codigo = 'This field is required';
+        errorData.codigo = ' Este campo es requerido!';
       }
       if (!values.date) {
-        errorData.date = 'This field is required';
+        errorData.date = ' Este campo es requerido!';
       }
 
       if (Object.keys(errorData).length > 0) {
@@ -79,7 +79,7 @@ export const AccountSetup = (props) => {
     inputChange('cardname', value);
 
     if (!value) {
-      setErrors((p) => ({ ...p, name: 'This field is required' }));
+      setErrors((p) => ({ ...p, name: ' Este campo es requerido!' }));
       return;
     }
 
@@ -97,17 +97,18 @@ export const AccountSetup = (props) => {
     inputChange('cardnumber', value);
 
     if (isNaN(value)) {
-      setErrors((p) => ({ ...p, number: 'This must be number' }));
+      setErrors((p) => ({ ...p, number: 'Este debe ser el número' }));
       return;
     }
 
     if (value.length >= 19) {
       setErrors((p) => ({
         ...p,
-        number: 'This must not be greater than 19 chars',
+        number: 'El número no debe de ser mayor a  19 dígitos',
       }));
       return;
     }
+
     setErrors((p) => {
       const newPrevProps = { ...p };
       delete newPrevProps.number;
@@ -122,13 +123,13 @@ export const AccountSetup = (props) => {
     inputChange('codigo', value);
 
     if (isNaN(value)) {
-      setErrors((p) => ({ ...p, codigo: 'This must be number' }));
+      setErrors((p) => ({ ...p, codigo: 'Este debe ser el número' }));
       return;
     }
     if (value.length >= 4) {
       setErrors((p) => ({
         ...p,
-        codigo: 'This must not be greater than 4 chars',
+        codigo: 'El número no debe de ser mayor a  4 dígitos',
       }));
       return;
     }
@@ -144,29 +145,33 @@ export const AccountSetup = (props) => {
     const value = e.target.value;
 
     inputChange('date', value);
+
     if (!value) {
       setErrors((p) => ({
         ...p,
-        date: 'This field is required',
-      }));
-      return;
-    }
-    if (!value.includes('/') || value.length !== 5) {
-      setErrors((p) => ({
-        ...p,
-        date: 'Invalid date! Please formate your date',
+        date: ' Este campo es requerido!',
       }));
       return;
     }
 
-    const dateArray = value.split('/');
-    const month = parseInt(dateArray[0]);
-    const year = parseInt(dateArray[1]);
+    if (isNaN(value)) {
+      setErrors((p) => ({ ...p, date: 'Este debe ser el número' }));
+      return;
+    }
 
-    if (isNaN(month) || isNaN(year) || month > 12) {
+    const month = value.slice(0, 2);
+    const year = value.slice(2, 4);
+    if (
+      !month ||
+      !year ||
+      isNaN(month) ||
+      isNaN(year) ||
+      month > 12 ||
+      value.length > 4
+    ) {
       setErrors((p) => ({
         ...p,
-        date: 'Invalid date! Please formate your date',
+        date: 'Fecha inválida, escribe una fecha correcta en el formato mm/yy',
       }));
       return;
     }
@@ -219,21 +224,23 @@ export const AccountSetup = (props) => {
       <div className='form.group'>
         <label htmlFor='date'>Fecha de Expiración</label>
         <input
-          type='text'
+          type='number'
           className='form-control'
           name='date'
-          placeholder='mm/yy'
+          id='date'
+          placeholder='mmyy'
           onChange={cardDateChangeHandler}
           value={values.date}
         />
         {errors?.date && <ErrorMessage>{errors?.date}</ErrorMessage>}
       </div>
       <div className='form.group'>
-        <label htmlFor='date'>
+        <label htmlFor='cuotas'>
           Elige tu cantidad de cuotas para pagar tus artículos
         </label>
         <select
           class='form-select'
+          id='cuotas'
           value={values.cuotas}
           aria-label='Default select example'
           onChange={(e) => inputChange('cuotas', e.target.value)}

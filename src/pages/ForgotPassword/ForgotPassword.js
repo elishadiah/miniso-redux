@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useRef, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import CheckButton from 'react-validation/build/button';
 import Form from 'react-validation/build/form';
@@ -19,7 +18,6 @@ const required = (value) => {
 const ForgotPassword = () => {
   const form = useRef();
   const checkBtn = useRef();
-  const history = useHistory();
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
