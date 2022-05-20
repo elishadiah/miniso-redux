@@ -171,7 +171,7 @@ export const AccountSetup = (props) => {
     ) {
       setErrors((p) => ({
         ...p,
-        date: 'Fecha inválida, escribe una fecha correcta en el formato mm/yy',
+        date: 'Fecha inválida, escribe una fecha correcta en el formato mmyy',
       }));
       return;
     }
