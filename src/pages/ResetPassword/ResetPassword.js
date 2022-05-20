@@ -24,9 +24,9 @@ const confirmPasswordValidation = (value, props) => {
       </div>
     );
   }
-  const prevPass = props.prevPass;
+  const prevpass = props.prevpass;
 
-  if (prevPass !== value) {
+  if (prevpass !== value) {
     return (
       <div className='alert alert-danger' role='alert'>
         ¡La contraseña no coincide!
@@ -107,13 +107,13 @@ const ResetPassword = () => {
               className='form-control'
               name='confirmPassword'
               value={confirmPassword}
-              prevPass={password}
+              prevpass={password}
               onChange={(e) => setConfirmPassword(e.target.value)}
               validations={[confirmPasswordValidation]}
             />
           </div>
 
-          <div class='form-check'>
+          <div className='form-check'>
             <input
               className='form-check-input'
               checked={isPassShow}
@@ -123,7 +123,7 @@ const ResetPassword = () => {
             />
             <label
               className='form-check-label'
-              for='passwordShowCheckBox'
+              htmlFor='passwordShowCheckBox'
               style={{ userSelect: 'none' }}
             >
               Show password

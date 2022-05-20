@@ -99,13 +99,13 @@ const Drawer = () => {
             <Link to='/register' className={classes.daLink}>
               <div className={classes.MenuItem}>REGISTRARSE</div>
       </Link>*/}
-
             <ListItem>
               <ListItemText>
                 {categories.map((cat) => (
                   <Link
                     to={`/productoslista/${cat.codCatUno}`}
                     className={classes.link}
+                    key={Math.random()}
                   >
                     <div>{cat.descripcion}</div>
 
@@ -115,6 +115,7 @@ const Drawer = () => {
                 ))}
               </ListItemText>
             </ListItem>
+            cl
           </List>
         </div>
       </SwipeableDrawer>
