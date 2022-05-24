@@ -22,9 +22,8 @@ const OrderHistory = () => {
         <tbody>
           <tr>
             <th scope='row'>No. De Order</th>
-            <td>Estodo</td>
+            <td>Estado</td>
             <td>Fecha registrado</td>
-            <td>No. De Productions</td>
             <td>Clients</td>
             <td>Total</td>
           </tr>
@@ -33,7 +32,6 @@ const OrderHistory = () => {
               <td>#{order.id}</td>
               <td>{order.state}</td>
               <td>{moment(order.fecha).format('L')}</td>
-              <td></td>
               <td></td>
               <td>Q{order.granTotal}</td>
             </tr>
