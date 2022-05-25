@@ -24,7 +24,6 @@ const OrderHistory = () => {
             <th scope='row'>No. De Order</th>
             <td>Estado</td>
             <td>Fecha registrado</td>
-            <td>Clients</td>
             <td>Total</td>
           </tr>
           {orders.map((order) => (
@@ -32,7 +31,6 @@ const OrderHistory = () => {
               <td>#{order.id}</td>
               <td>{order.state}</td>
               <td>{moment(order.fecha).format('L')}</td>
-              <td></td>
               <td>Q{order.granTotal}</td>
             </tr>
           ))}
