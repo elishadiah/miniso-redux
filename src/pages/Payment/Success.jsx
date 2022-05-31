@@ -1,7 +1,7 @@
-import axios from "axios";
-import React, { Component } from "react";
-import classes from "./Success.module.css";
 import Container from "@mui/material/Container";
+import axios from "axios";
+import { Component } from "react";
+import classes from "./Success.module.css";
 
 export class Success extends Component {
   descargar() {
@@ -19,7 +19,7 @@ export class Success extends Component {
       ("0" + d.getMinutes()).slice(-2);
 
     axios({
-      url: `http://3.16.73.177:9080/public/voucher/user?userName=${username}`,
+      url: `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/voucher/user?userName=${username}`,
       method: "GET",
       responseType: "blob", // important
     }).then((response) => {
@@ -48,8 +48,8 @@ export class Success extends Component {
             </p>
           </div>
 
-          <div class='d-flex justify-content-center'>
-            <button className='bTnProperty' onClick={this.descargar}>
+          <div class="d-flex justify-content-center">
+            <button className="bTnProperty" onClick={this.descargar}>
               Descargar Comprobante de Pago
             </button>
           </div>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import $ from "jquery";
 
-const API_URL = `http://3.16.73.177:9080`;
+const API_URL = `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API`;
 
 const register = (
   userName,
@@ -43,7 +43,7 @@ const login = async (username, password, cb) => {
         username: "ReactMinisoApp",
         password: "R3@l1z3m1n1z0",
       },
-      withCredentials: true,
+      withCredentials: false,
       crossDomain: true,
     };
 
@@ -69,8 +69,8 @@ const login = async (username, password, cb) => {
 
 const logout = () => {
   localStorage.removeItem("username");
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
 };
 
 const getCurrentUser = () => {
