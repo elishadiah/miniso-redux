@@ -1,11 +1,59 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
 const AddressForm = ({ setFromShow }) => {
+  const [departamentos, setDepartamentos] = useState([]);
+  const [municipios, setMunicipios] = useState([]);
+  const [poblados, setPoblados] = useState([]);
+
+  const [departament, setDepartament] = useState('');
+  const [municipio, setMunicipio] = useState('');
+  const [poblado, setPoblado] = useState('');
+
+  useEffect(() => {
+    axios
+      .get('http://3.16.73.177:9080/public/geo/departamento')
+      .then((res) => {
+        setDepartamentos(res.data);
+        setDepartament(res.data?.[1]?.id);
+      })
+      .catch((e) => {
+        toast.error('¡Error del Servidor!');
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(
+        `http://3.16.73.177:9080/public/geo/municipio?departamento=${departament}`
+      )
+      .then((res) => {
+        setMunicipio(res.data?.body?.[1]?.id);
+        setMunicipios(res.data?.body || []);
+      })
+      .catch((e) => {
+        toast.error('¡Error del Servidor!');
+      });
+  }, [departament]);
+  useEffect(() => {
+    axios
+      .get(`http://3.16.73.177:9080/public/geo/poblado?municipio=${municipio}`)
+      .then((res) => {
+        setPoblado(res.data?.[1]?.id);
+        setPoblados(res.data || []);
+      })
+      .catch((e) => {
+        toast.error('¡Error del Servidor!');
+      });
+  }, [municipio]);
+
   const submitHandler = (e) => {
     e.preventDefault();
     setFromShow(false);
   };
+
   return (
     <div className='row justify-content-center '>
       <div className='col-md-6 p-3'>
@@ -17,10 +65,14 @@ const AddressForm = ({ setFromShow }) => {
               class='form-select mt-1'
               id='department'
               aria-label='Default select example'
+              value={departament}
+              onChange={(e) => setDepartament(e.target.value)}
             >
-              <option value='1'>One</option>
-              <option value='2'>Two</option>
-              <option value='3'>Three</option>
+              {departamentos.map((item) => (
+                <option value={item.id} key={Math.random()}>
+                  {item.nombre}
+                </option>
+              ))}
             </select>
           </div>
           <div className='form-group'>
@@ -29,10 +81,14 @@ const AddressForm = ({ setFromShow }) => {
               class='form-select mt-1'
               id='department'
               aria-label='Default select example'
+              value={municipio}
+              onChange={(e) => setMunicipio(e.target.value)}
             >
-              <option value='1'>One</option>
-              <option value='2'>Two</option>
-              <option value='3'>Three</option>
+              {municipios.map((item) => (
+                <option value={item.id} key={Math.random()}>
+                  {item.nombre}
+                </option>
+              ))}
             </select>
           </div>
           <div className='form-group'>
@@ -41,10 +97,14 @@ const AddressForm = ({ setFromShow }) => {
               class='form-select mt-1'
               id='department'
               aria-label='Default select example'
+              value={poblado}
+              onChange={(e) => setPoblado(e.target.value)}
             >
-              <option value='1'>One</option>
-              <option value='2'>Two</option>
-              <option value='3'>Three</option>
+              {poblados.map((item) => (
+                <option value={item.id} key={Math.random()}>
+                  {item.nombre}
+                </option>
+              ))}
             </select>
           </div>
 
