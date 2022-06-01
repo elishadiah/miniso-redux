@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import CheckButton from 'react-validation/build/button';
 import Form from 'react-validation/build/form';
@@ -72,6 +72,12 @@ const ResetPassword = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!token) {
+      toast.error('Invalid token!');
+    }
+  });
 
   return (
     <div className='container col-md-12'>
