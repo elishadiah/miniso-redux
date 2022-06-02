@@ -38,12 +38,13 @@ const login = async (username, password, cb) => {
     const config = {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Access-Control-Allow-Credentials":"true",
       },
       auth: {
         username: "ReactMinisoApp",
         password: "R3@l1z3m1n1z0",
       },
-      withCredentials: false,
+      withCredentials: true,
       crossDomain: true,
     };
 

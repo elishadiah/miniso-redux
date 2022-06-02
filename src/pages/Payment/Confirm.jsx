@@ -49,7 +49,7 @@ export const Confirm = (props) => {
     var config = {
       method: "post",
       url: `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/private/cart/end?userName=${username}`,
-      headers: { Authorization: `Bearer ${token}`, crossDomain: true },
+      headers: { Authorization: `Bearer ${token}`},
       data: {
         nombre: cardname,
         numCart: cardnumber,
