@@ -16,8 +16,8 @@ const AddressForm = ({ setFromShow }) => {
     axios
       .get('http://3.16.73.177:9080/public/geo/departamento')
       .then((res) => {
-        setDepartamentos(res.data);
-        setDepartament(res.data?.[1]?.id);
+        setDepartamentos(res.data.body);
+        setDepartament(res.data?.body?.[1]?.id);
       })
       .catch((e) => {
         toast.error('¡Error del Servidor!');
@@ -41,8 +41,8 @@ const AddressForm = ({ setFromShow }) => {
     axios
       .get(`http://3.16.73.177:9080/public/geo/poblado?municipio=${municipio}`)
       .then((res) => {
-        setPoblado(res.data?.[1]?.id);
-        setPoblados(res.data || []);
+        setPoblado(res.data?.body?.[1]?.id);
+        setPoblados(res.data?.body || []);
       })
       .catch((e) => {
         toast.error('¡Error del Servidor!');
