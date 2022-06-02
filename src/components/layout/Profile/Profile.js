@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReactHelmet from '../../Seo/ReactHelmet';
-import AddressForm from './AddressForm';
+import AllAddress from '../Address/AllAddress';
 import OrderHistory from './OrderHistory';
 import classes from './Profile.module.css';
 
@@ -15,12 +15,12 @@ const Profile = () => {
       <OrderHistory />
       {dataShow && (
         <>
+          <AllAddress />
           <div className='text-center'>
             <Button onClick={() => setFromShow((prev) => !prev)}>
               Crear una Dirección
             </Button>
           </div>
-          {formShow && <AddressForm setFromShow={setFromShow} />}
         </>
       )}
     </div>
