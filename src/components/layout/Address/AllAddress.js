@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FaPen, FaTrashAlt } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
@@ -7,39 +7,61 @@ import AddressForm from '../Profile/AddressForm';
 const AllAddress = () => {
   const [address, setAddress] = useState([]);
 
-  const [selectedId, setSelectedId] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  const [isAdd, setIsAdd] = useState(false);
 
-  useEffect(() => {
-    const username = 'kev45';
-    // const username = localStorage.getItem('token');
-    axios
-      .get(`http://3.16.73.177:9080/public/geo/direccion?userName=${username}`)
-      .then((res) => {
-        console.log(res.data.body);
-        setAddress(res.data.body);
-      })
-      .catch((e) => {
-        console.log(e);
-        toast.error('Server error!');
-      });
+  const fetchAllAddress = useCallback(async () => {
+    console.log('fetch all address');
+    try {
+      //   const username = localStorage.getItem('token');
+      const username = 'kev45';
+      const res = await axios.get(
+        `http://3.16.73.177:9080/public/geo/direccion?userName=${username}`
+      );
+      setAddress(res.data.body);
+    } catch (error) {
+      console.error(error);
+      const errorMsg = error?.response?.data?.message || '¡Error del Servidor!';
+      toast.error(errorMsg);
+    }
   }, []);
 
-  const deleteAddressHandler = (e) => {
+  useEffect(() => fetchAllAddress(), [fetchAllAddress]);
+
+  const deleteAddressHandler = async (e, id) => {
     e.preventDefault();
-    const url = `http://3.16.73.177:9080/public/geo/direccion?direccion=4`;
-    axios
-      .delete(url)
-      .then(() => {
-        toast.success('Address added');
-      })
-      .catch((e) => {
-        console.log(e);
-        toast.error('Server Error!');
-      });
+    try {
+      const url = `http://3.16.73.177:9080/public/geo/direccion?direccion=${id}`;
+      await axios.delete(url);
+      toast.success('¡Dirección eliminada!');
+      setAddress((prev) => prev.filter((item) => item.id !== id));
+    } catch (error) {
+      console.error(error);
+      const errorMsg = error?.response?.data?.message || '¡Error del Servidor!';
+      toast.error(errorMsg);
+    }
   };
 
   return (
     <div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 20,
+        }}
+      >
+        <h2 className='m-0'>All Address</h2>
+        <Button
+          onClick={() => {
+            if (selectedId) setSelectedId('');
+            setIsAdd(true);
+          }}
+        >
+          Add New address
+        </Button>
+      </div>
       <table class='table'>
         <tbody>
           <tr>
@@ -54,7 +76,7 @@ const AllAddress = () => {
           </tr>
           {address.map((address, index) => (
             <tr key={Math.random()}>
-              <th scope='row'>{index}</th>
+              <th scope='row'>{index + 1}</th>
               <td>{address.departamentoDto.nombre}</td>
               <td>{address.municipioDto.nombre}</td>
               <td>{address.pobladoDto.nombre}</td>
@@ -63,10 +85,15 @@ const AllAddress = () => {
               <td>{address.referencia}</td>
               <td>
                 <div style={{ display: 'flex', gap: '10px' }}>
-                  <Button onClick={() => setSelectedId(address.id)}>
+                  <Button
+                    onClick={() => {
+                      if (isAdd) setIsAdd(false);
+                      setSelectedId(address.id);
+                    }}
+                  >
                     <FaPen />
                   </Button>
-                  <Button onClick={deleteAddressHandler}>
+                  <Button onClick={(e) => deleteAddressHandler(e, address.id)}>
                     <FaTrashAlt />
                   </Button>
                 </div>
@@ -81,7 +108,11 @@ const AllAddress = () => {
           isEdit
           setFromShow={setSelectedId}
           selectedId={selectedId}
+          fetchAllAddress={fetchAllAddress}
         />
+      )}
+      {isAdd && (
+        <AddressForm setFromShow={setIsAdd} fetchAllAddress={fetchAllAddress} />
       )}
     </div>
   );

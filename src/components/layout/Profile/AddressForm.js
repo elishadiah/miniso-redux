@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
-const AddressForm = ({ setFromShow, isEdit, selectedId }) => {
+const AddressForm = ({ setFromShow, isEdit, selectedId, fetchAllAddress }) => {
   const [departamentos, setDepartamentos] = useState([]);
   const [municipios, setMunicipios] = useState([]);
   const [poblados, setPoblados] = useState([]);
 
-  const [departament, setDepartament] = useState('');
+  const [departamento, setDepartamento] = useState('');
   const [municipio, setMunicipio] = useState('');
   const [poblado, setPoblado] = useState('');
   const [telefono, setTelefono] = useState('');
@@ -29,7 +29,7 @@ const AddressForm = ({ setFromShow, isEdit, selectedId }) => {
           );
           console.log({ matchedAddress });
           if (Object.keys(matchedAddress).length > 0) {
-            setDepartament(matchedAddress.departamentoDto.id);
+            setDepartamento(matchedAddress.departamentoDto.id);
             setMunicipio(matchedAddress.municipioDto.id);
             setPoblado(matchedAddress.pobladoDto.id);
             setTelefono(matchedAddress.telefono);
@@ -39,7 +39,7 @@ const AddressForm = ({ setFromShow, isEdit, selectedId }) => {
         })
         .catch((e) => {
           console.log(e);
-          toast.error('Server error!');
+          toast.error('¡Error del Servidor!');
         });
     }
   }, [isEdit, selectedId]);
@@ -50,7 +50,7 @@ const AddressForm = ({ setFromShow, isEdit, selectedId }) => {
       .then((res) => {
         setDepartamentos(res.data.body);
         if (!isEdit) {
-          setDepartament(res.data?.body?.[0]?.id);
+          setDepartamento(res.data?.body?.[0]?.id);
         }
       })
       .catch((e) => {
@@ -60,10 +60,10 @@ const AddressForm = ({ setFromShow, isEdit, selectedId }) => {
   }, [isEdit]);
 
   useEffect(() => {
-    if (!departament) return;
+    if (!departamento) return;
     axios
       .get(
-        `http://3.16.73.177:9080/public/geo/municipio?departamento=${departament}`
+        `http://3.16.73.177:9080/public/geo/municipio?departamento=${departamento}`
       )
       .then((res) => {
         if (!isEdit) {
@@ -76,7 +76,7 @@ const AddressForm = ({ setFromShow, isEdit, selectedId }) => {
         console.log(e);
         toast.error('¡Error del Servidor!');
       });
-  }, [departament, isEdit]);
+  }, [departamento, isEdit]);
 
   useEffect(() => {
     if (!municipio) return;
@@ -94,11 +94,11 @@ const AddressForm = ({ setFromShow, isEdit, selectedId }) => {
       });
   }, [municipio, isEdit]);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
     const data = {
-      departament,
+      departamento: parseInt(departamento),
       municipio,
       poblado,
       telefono,
@@ -108,29 +108,35 @@ const AddressForm = ({ setFromShow, isEdit, selectedId }) => {
     // const username = localStorage.getItem('username')
     const username = 'kev45';
     if (isEdit) {
-      const url = `http://3.16.73.177:9080/public/geo/direccion?userName=${username}&direccion=2`;
-      axios
-        .put(url)
-        .then(() => {
-          setFromShow(false);
-          toast.success('Address updated');
-        })
-        .catch((e) => {
-          toast.error('Error!');
-        });
+      try {
+        const url = `http://3.16.73.177:9080/public/geo/direccion?userName=${username}&direccion=${selectedId}`;
+        await axios.put(url, data);
+
+        setFromShow(false);
+        toast.success('Address updated');
+        fetchAllAddress();
+      } catch (error) {
+        console.error(error);
+        const errorMsg =
+          error?.response?.data?.message || '¡Error del Servidor!';
+        toast.error(errorMsg);
+      }
+
       return;
     }
 
-    const url = `http://3.16.73.177:9080/public/geo/direccion?userName=${username}`;
-    axios
-      .post(url)
-      .then(() => {
-        setFromShow(false);
-        toast.success('Address added');
-      })
-      .catch((e) => {
-        toast.error('Error!');
-      });
+    try {
+      const url = `http://3.16.73.177:9080/public/geo/direccion?userName=${username}`;
+      await axios.post(url, data);
+      setFromShow(false);
+      toast.success('Address added');
+      fetchAllAddress();
+    } catch (error) {
+      console.error(error);
+      const errorMsg = error?.response?.data?.message || '¡Error del Servidor!';
+      toast.error(errorMsg);
+    }
+
     return;
   };
 
@@ -145,8 +151,8 @@ const AddressForm = ({ setFromShow, isEdit, selectedId }) => {
               class='form-select mt-1'
               id='department'
               aria-label='Default select example'
-              value={departament}
-              onChange={(e) => setDepartament(e.target.value)}
+              value={departamento}
+              onChange={(e) => setDepartamento(e.target.value)}
             >
               {departamentos.map((item) => (
                 <option value={item.id} key={Math.random()}>
@@ -224,7 +230,12 @@ const AddressForm = ({ setFromShow, isEdit, selectedId }) => {
               onChange={(e) => setReferencia(e.target.value)}
             />
           </div>
-          <Button type='submit'>Save</Button>
+          <div>
+            <Button type='submit'>Save</Button>
+            <Button2 type='button' onClick={() => setFromShow(false)}>
+              Cancel
+            </Button2>
+          </div>
         </form>
       </div>
     </div>
@@ -250,6 +261,26 @@ const Button = styled.button`
     background-color: transparent;
     border: 2px solid #e71425;
     color: #e71425;
+    cursor: pointer;
+  }
+`;
+const Button2 = styled.button`
+  padding: 7px 15px;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 1rem;
+  margin-left: 0;
+  background-color: transparent;
+  border: 2px solid #e71425;
+  color: #e71425;
+  border-radius: 4px;
+  transition: background 200ms ease-in, color 200ms ease-in;
+
+  &:hover {
+    color: #ffffff;
+    background-color: #e71425;
+    border: 2px solid #e71425;
     cursor: pointer;
   }
 `;
