@@ -7,7 +7,7 @@ import classes from './Profile.module.css';
 
 const dataShow = true;
 const Profile = () => {
-  const [formShow, setFromShow] = useState(false);
+  const [addressShow, setAddressShow] = useState(false);
   return (
     <div className='container'>
       <ReactHelmet title={'Profile'} />
@@ -15,12 +15,12 @@ const Profile = () => {
       <OrderHistory />
       {dataShow && (
         <>
-          <AllAddress />
           <div className='text-center'>
-            <Button onClick={() => setFromShow((prev) => !prev)}>
+            <Button onClick={() => setAddressShow((prev) => !prev)}>
               Crear una Dirección
             </Button>
           </div>
+          {addressShow && <AllAddress />}
         </>
       )}
     </div>
