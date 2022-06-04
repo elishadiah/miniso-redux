@@ -13,8 +13,8 @@ const AllAddress = () => {
   const fetchAllAddress = useCallback(async () => {
     console.log('fetch all address');
     try {
-      //   const username = localStorage.getItem('token');
-      const username = 'kev45';
+      const username = localStorage.getItem('username');
+
       const res = await axios.get(
         `http://3.16.73.177:9080/public/geo/direccion?userName=${username}`
       );

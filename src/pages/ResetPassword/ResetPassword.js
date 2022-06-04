@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import CheckButton from 'react-validation/build/button';
 import Form from 'react-validation/build/form';
@@ -37,6 +38,7 @@ const confirmPasswordValidation = (value, props) => {
 
 const ResetPassword = () => {
   const form = useRef();
+  const history = useHistory();
   const checkBtn = useRef();
   const token = getGetQueryParams('token');
 
@@ -75,7 +77,12 @@ const ResetPassword = () => {
 
   useEffect(() => {
     if (!token) {
-      toast.error('Invalid token!');
+      toast.error('Invalid token! Redirecting to home page in 5 sec', {
+        autoClose: 3600,
+      });
+      setTimeout(() => {
+        history.push('/');
+      }, 1000 * 5);
     }
   });
 
