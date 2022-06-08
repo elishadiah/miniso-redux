@@ -44,7 +44,7 @@ export const AccountSetup = (props) => {
     e.preventDefault();
     const newValues = { ...values };
     delete newValues.cuotas;
-
+    delete newValues.shippingAddress;
     if (
       Object.entries(newValues)
         .map((i) => i[1])

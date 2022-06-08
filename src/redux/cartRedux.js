@@ -1,10 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const cartSlice = createSlice({
-  name: "cart",
+  name: 'cart',
   initialState: {
     products: [],
     quantity: 0,
+    gastosEnvio: 0,
     total: 0,
   },
   reducers: {
@@ -60,9 +61,11 @@ const cartSlice = createSlice({
       state.total = total;
     },
 
-    updateCart: (state, action) => {
-      const products = action.payload;
+    updateCart: (state, action, ...rest) => {
+      const { allProducts: products, gastosEnvio } = action.payload;
+      console.log(rest);
       state.products = products;
+      state.gastosEnvio = gastosEnvio;
       const quantity = state.products
         .map((item) => {
           return item.amount;

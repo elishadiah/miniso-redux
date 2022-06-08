@@ -1,14 +1,14 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { clearCart } from "../../redux/cartAction";
-import "./Confirm.css";
-import "./Form.css";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { clearCart } from '../../redux/cartAction';
+import './Confirm.css';
+import './Form.css';
 
 export const Confirm = (props) => {
   const {
-    values: { cardname, cardnumber, date, cuotas },
+    values: { cardname, cardnumber, date, cuotas, shippingAddress },
     nextStep,
     prevStep,
   } = props;
@@ -20,7 +20,7 @@ export const Confirm = (props) => {
   const [loading, setLoading] = useState(false);
   const continueStep = (e) => {
     if (!isAuthenticated) {
-      toast.falseerror("Para realizar una compra, Inicia Sesión primero");
+      toast.falseerror('Para realizar una compra, Inicia Sesión primero');
       return;
     }
 
@@ -41,22 +41,31 @@ export const Confirm = (props) => {
   };
 
   const confirmPayment = async () => {
-    const { cardname, cardnumber, codigo, date, cuotas } = props.values;
+    const {
+      cardname,
+      cardnumber,
+      codigo,
+      date,
+      cuotas,
+      shippingAddress: direccion,
+    } = props.values;
 
-    let username = localStorage.getItem("username");
-    let token = JSON.parse(localStorage.getItem("user")).access_token;
+    let username = localStorage.getItem('username');
+    let token = JSON.parse(localStorage.getItem('user')).access_token;
 
     var config = {
-      method: "post",
+      method: 'post',
       url: `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/private/cart/end?userName=${username}`,
-      headers: { Authorization: `Bearer ${token}`},
+      headers: { Authorization: `Bearer ${token}` },
       data: {
         nombre: cardname,
         numCart: cardnumber,
         cvv: codigo,
         fechaExpira: date,
-        ip: "190.56.100.90",
+        ip: '190.56.100.90',
         cuota: cuotas,
+        direccion,
+        enviar: true,
       },
     };
     setLoading(true);
@@ -72,7 +81,7 @@ export const Confirm = (props) => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Error al realizar el pago");
+      toast.error('Error al realizar el pago');
       setLoading(false);
     }
   };
@@ -81,16 +90,16 @@ export const Confirm = (props) => {
     return () => {};
   }, []);
   return (
-    <div className="form-container">
-      <h3 className="mb-5 text-center">Confirmar Datos</h3>
-      <ul class="list-group">
-        <li class="list-group-item">
+    <div className='form-container'>
+      <h3 className='mb-5 text-center'>Confirmar Datos</h3>
+      <ul class='list-group'>
+        <li class='list-group-item'>
           Nombre del titular de la tarjeta: {cardname}
         </li>
-        <li class="list-group-item">Numero de Tarjeta: {cardnumber}</li>
-        <li class="list-group-item">Código de Seguridad (CVV): ***</li>
-        <li class="list-group-item">Fecha de Expiración: {date}</li>
-        <li class="list-group-item">
+        <li class='list-group-item'>Numero de Tarjeta: {cardnumber}</li>
+        <li class='list-group-item'>Código de Seguridad (CVV): ***</li>
+        <li class='list-group-item'>Fecha de Expiración: {date}</li>
+        <li class='list-group-item'>
           Cantidad de cuotas seleccionadas: {cuotas}
         </li>
         {/*<li class='list-group-item'>Name: {name}</li>
@@ -108,17 +117,17 @@ export const Confirm = (props) => {
     </li>*/}
       </ul>
       <br />
-      <div className="text-center">
-        {loading && <span className="spinner-border spinner-border-lg"></span>}
+      <div className='text-center'>
+        {loading && <span className='spinner-border spinner-border-lg'></span>}
       </div>
-      <div className="row justify-content-sm-between">
-        <div className="col-12 col-sm-6">
-          <button className="btn2" onClick={backStep}>
+      <div className='row justify-content-sm-between'>
+        <div className='col-12 col-sm-6'>
+          <button className='btn2' onClick={backStep}>
             Atrás
           </button>
         </div>
-        <div className="col-12 col-sm-6 confirmButton d-sm-flex justify-content-sm-end ">
-          <button className="btn1" onClick={continueStep} disabled={loading}>
+        <div className='col-12 col-sm-6 confirmButton d-sm-flex justify-content-sm-end '>
+          <button className='btn1' onClick={continueStep} disabled={loading}>
             Realizar Pago
           </button>
         </div>

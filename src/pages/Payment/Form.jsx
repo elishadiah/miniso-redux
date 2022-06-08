@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AccountSetup from './AccountSetup';
 //import SocialProfiles from "./SocialProfiles";
 import Confirm from './Confirm';
+import SelectAddress from './SelectAddress';
 import Success from './Success';
 
 export const Form = () => {
@@ -17,6 +18,7 @@ export const Form = () => {
   });
 
   const [step, setStep] = useState(1);
+  const [shippingAddress, setShippingAddress] = useState('');
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -45,7 +47,14 @@ export const Form = () => {
     date,
     cuotas /*name, email, phone, password, facebook, twitter, github*/,
   } = state;
-  const values = { cardname, cardnumber, codigo, date, cuotas };
+  const values = {
+    cardname,
+    cardnumber,
+    codigo,
+    date,
+    cuotas,
+    shippingAddress,
+  };
 
   switch (step) {
     case 1:
@@ -68,9 +77,18 @@ export const Form = () => {
         );*/
     case 2:
       return (
-        <Confirm nextStep={nextStep} prevStep={prevStep} values={values} />
+        <SelectAddress
+          nextStep={nextStep}
+          prevStep={prevStep}
+          shippingAddress={shippingAddress}
+          setShippingAddress={setShippingAddress}
+        />
       );
     case 3:
+      return (
+        <Confirm nextStep={nextStep} prevStep={prevStep} values={values} />
+      );
+    case 4:
       return <Success />;
     default:
       return null;

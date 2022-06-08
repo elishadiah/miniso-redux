@@ -36,7 +36,7 @@ import {
   Wrapper,
 } from './Cart.styled';
 const Cart = () => {
-  const { total } = useSelector((state) => state.cart);
+  const { total, gastosEnvio } = useSelector((state) => state.cart);
   const { isAuthenticated } = useSelector((state) => state.user);
   const cartProductsList = useSelector((state) => state.cart.products);
   const dispatch = useDispatch();
@@ -128,9 +128,13 @@ const Cart = () => {
                 <SummaryItemText>Subtotal</SummaryItemText>
                 <SummaryItemPrice>Q. {total}</SummaryItemPrice>
               </SummaryItem>
+              <SummaryItem>
+                <SummaryItemText>gastosEnvio</SummaryItemText>
+                <SummaryItemPrice>Q. {gastosEnvio}</SummaryItemPrice>
+              </SummaryItem>
               <SummaryItem type='total'>
                 <SummaryItemText>Total</SummaryItemText>
-                <SummaryItemPrice>Q. {total}</SummaryItemPrice>
+                <SummaryItemPrice>Q. {total - gastosEnvio}</SummaryItemPrice>
               </SummaryItem>
 
               {isAuthenticated ? (
