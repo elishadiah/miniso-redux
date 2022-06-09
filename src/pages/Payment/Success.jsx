@@ -38,14 +38,14 @@ export class Success extends Component {
         <Container fixed>
           <div className={classes.WrapperSuccess}>
             <h1>¡GRACIAS POR TU COMPRA!</h1>
-            <p>
+            {/* <p>
               Puedes acercarte a la Tienda Miniso - Oakland Mall.
               <br />
               En 2 dias con el comprobante que descargaste
               <br />
               puedes recoger tu pedido.
               <br />
-            </p>
+            </p> */}
           </div>
 
           <div class="d-flex justify-content-center">

@@ -124,7 +124,7 @@ const ProductList = () => {
                 </Select1>
               </FilterContainerResponsive>
               <FilterContainerResponsive className='col-12 col-sm-6 col-md-2 '>
-                <h6>Colleccion</h6>
+                <h6>Colección</h6>
                 <Select1
                   name='categoría'
                   className='form-control'
@@ -137,7 +137,7 @@ const ProductList = () => {
                     }));
                   }}
                 >
-                  <Option value=''>Select</Option>
+                  <Option value="">Todas</Option>
                   <Option value='marvel'>Marvel</Option>
                   <Option value='disney'>Disney</Option>
                 </Select1>
@@ -187,7 +187,7 @@ const ProductList = () => {
                 <h6>Buscador de Productos:</h6>
                 <PriceInput
                   type='text'
-                  placeholder='search...'
+                  placeholder="buscar..."
                   className='form-control'
                   value={filters.name}
                   onChange={(e) => {
@@ -212,7 +212,7 @@ const ProductList = () => {
               </Sortby>
               <div className='col-md-2'>
                 <h6 style={{ visibility: 'hidden' }}>h</h6>
-                <Button onClick={filterClear}>Clear</Button>
+                <Button onClick={filterClear}>Limpiar</Button>
               </div>
             </Top>
 

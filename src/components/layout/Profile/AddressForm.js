@@ -231,7 +231,7 @@ const AddressForm = ({ setFromShow, isEdit, selectedId, fetchAllAddress }) => {
             />
           </div>
           <div>
-            <Button type='submit'>Save</Button>
+            <Button type="submit">Guardar</Button>
             <Button2 type='button' onClick={() => setFromShow(false)}>
               Cancel
             </Button2>

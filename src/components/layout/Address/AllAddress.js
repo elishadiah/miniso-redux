@@ -59,7 +59,7 @@ const AllAddress = () => {
             setIsAdd(true);
           }}
         >
-          Add New address
+          Agregar nueva dirección
         </Button>
       </div>
       <table class='table'>

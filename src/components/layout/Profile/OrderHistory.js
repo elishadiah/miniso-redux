@@ -21,7 +21,7 @@ const OrderHistory = () => {
       <table class="table">
         <tbody>
           <tr>
-            <th scope="row">No. De Order</th>
+            <th scope="row">No. De Orden</th>
             <td>Estado</td>
             <td>Fecha registrado</td>
             <td>Total</td>
