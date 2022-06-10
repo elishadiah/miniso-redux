@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
@@ -21,7 +21,7 @@ const AddressForm = ({ setFromShow, isEdit, selectedId, fetchAllAddress }) => {
       // const username = localStorage.getItem('token');
       axios
         .get(
-          `http://3.16.73.177:9080/public/geo/direccion?userName=${username}`
+          `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/geo/direccion?userName=${username}`
         )
         .then((res) => {
           const matchedAddress = res.data.body?.find(
@@ -46,7 +46,7 @@ const AddressForm = ({ setFromShow, isEdit, selectedId, fetchAllAddress }) => {
 
   useEffect(() => {
     axios
-      .get('http://3.16.73.177:9080/public/geo/departamento')
+    .get("https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/geo/departamento")
       .then((res) => {
         setDepartamentos(res.data.body);
         if (!isEdit) {
@@ -63,7 +63,7 @@ const AddressForm = ({ setFromShow, isEdit, selectedId, fetchAllAddress }) => {
     if (!departamento) return;
     axios
       .get(
-        `http://3.16.73.177:9080/public/geo/municipio?departamento=${departamento}`
+        `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/geo/municipio?departamento=${departamento}`
       )
       .then((res) => {
         if (!isEdit) {
@@ -81,7 +81,7 @@ const AddressForm = ({ setFromShow, isEdit, selectedId, fetchAllAddress }) => {
   useEffect(() => {
     if (!municipio) return;
     axios
-      .get(`http://3.16.73.177:9080/public/geo/poblado?municipio=${municipio}`)
+    .get(`https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/geo/poblado?municipio=${municipio}`)
       .then((res) => {
         if (!isEdit) {
           setPoblado(res.data?.body?.[0]?.id);
@@ -109,7 +109,7 @@ const AddressForm = ({ setFromShow, isEdit, selectedId, fetchAllAddress }) => {
 
     if (isEdit) {
       try {
-        const url = `http://3.16.73.177:9080/public/geo/direccion?userName=${username}&direccion=${selectedId}`;
+        const url = `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/geo/direccion?userName=${username}&direccion=${selectedId}`;
         await axios.put(url, data);
 
         setFromShow(false);
@@ -126,7 +126,7 @@ const AddressForm = ({ setFromShow, isEdit, selectedId, fetchAllAddress }) => {
     }
 
     try {
-      const url = `http://3.16.73.177:9080/public/geo/direccion?userName=${username}`;
+      const url = `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/geo/direccion?userName=${username}`;
       await axios.post(url, data);
       setFromShow(false);
       toast.success('Address added');

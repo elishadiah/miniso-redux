@@ -13,7 +13,7 @@ export const SelectAddress = (props) => {
       const username = localStorage.getItem('username');
 
       const res = await axios.get(
-        `http://3.16.73.177:9080/public/geo/direccion?userName=${username}`
+        `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/geo/direccion?userName=${username}`
       );
       setAddresses(res.data.body);
       setShippingAddress(res.data.body?.[0].id);
