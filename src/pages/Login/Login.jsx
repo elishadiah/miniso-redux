@@ -50,7 +50,7 @@ const Login = () => {
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(username, password, (isOk, result) => {
         if (isOk) {
-          history.push('/profile');
+          history.push('/');
           const user = jwtDecode(result.access_token);
           dispatch(loginSuccess(user));
           return;
