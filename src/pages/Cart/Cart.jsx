@@ -123,42 +123,57 @@ const Cart = () => {
               <Hr />
             </Info>
             <Summary>
-              <SummaryTitle>RESUMEN DE PEDIDO</SummaryTitle>
-              <SummaryItem>
-                <SummaryItemText>Subtotal</SummaryItemText>
-                <SummaryItemPrice>Q. {total}</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem>
-                <SummaryItemText>gastosEnvio</SummaryItemText>
-                <SummaryItemPrice>Q. {gastosEnvio}</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem type='total'>
-                <SummaryItemText>Total</SummaryItemText>
-                <SummaryItemPrice>Q. {total + gastosEnvio}</SummaryItemPrice>
-              </SummaryItem>
+              <>
+                <SummaryTitle>RESUMEN DE PEDIDO</SummaryTitle>
+                <SummaryItem>
+                  <SummaryItemText>Subtotal</SummaryItemText>
+                  <SummaryItemPrice>Q. {total}</SummaryItemPrice>
+                </SummaryItem>
+                <SummaryItem>
+                  <SummaryItemText>gastosEnvio</SummaryItemText>
+                  <SummaryItemPrice>Q. {gastosEnvio}</SummaryItemPrice>
+                </SummaryItem>
+                <SummaryItem type='total'>
+                  <SummaryItemText>Total</SummaryItemText>
+                  <SummaryItemPrice>Q. {total + gastosEnvio}</SummaryItemPrice>
+                </SummaryItem>
 
-              {isAuthenticated ? (
-                cartProductsList.length > 0 ? (
-                  <Link to='/payment' className={classes.link2}>
-                    <button className={classes.bTnProperty}>
-                      Comprar Ahora
-                    </button>
-                  </Link>
-                ) : (
-                  <>
-                    <Link to='#' className={classes.link2}>
-                      <button
-                        className={classes.bTnProperty}
-                        onClick={() => {
-                          toast.error('Cart is empty');
-                        }}
-                      >
+                {isAuthenticated ? (
+                  cartProductsList.length > 0 ? (
+                    <Link to='/payment' className={classes.link2}>
+                      <button className={classes.bTnProperty}>
                         Comprar Ahora
                       </button>
                     </Link>
-                  </>
-                )
-              ) : null}
+                  ) : (
+                    <>
+                      <Link to='#' className={classes.link2}>
+                        <button
+                          className={classes.bTnProperty}
+                          onClick={() => {
+                            toast.error('Cart is empty');
+                          }}
+                        >
+                          Comprar Ahora
+                        </button>
+                      </Link>
+                    </>
+                  )
+                ) : null}
+              </>
+              {isAuthenticated && (
+                <div className='row justify-content-center '>
+                  <div className='col-md-4 '>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <Link to='/profile' className={classes.link2}>
+                        <button className={`${classes.bTnProperty} mt-5`}>
+                          Gestiona tus direcciones
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              )}
             </Summary>
           </Bottom>
         </Wrapper>
@@ -170,8 +185,3 @@ const Cart = () => {
   );
 };
 export default Cart;
-
-/*
-3,4,8 9.5 ,13,14
-
-*/
