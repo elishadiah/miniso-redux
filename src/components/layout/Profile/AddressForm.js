@@ -143,7 +143,7 @@ const AddressForm = ({ setFromShow, isEdit, selectedId, fetchAllAddress }) => {
   return (
     <div className='row justify-content-center '>
       <div className='col-md-6 p-3'>
-        {isEdit ? <h2>Edit Address</h2> : <h2>Address From</h2>}
+        {isEdit ? <h2>Edit Address</h2> : <h2>Nueva Dirección</h2>}
         <form onSubmit={submitHandler} className='mt-3'>
           <div className='form-group'>
             <label htmlFor='department'>Departamento</label>

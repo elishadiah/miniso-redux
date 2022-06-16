@@ -134,7 +134,7 @@ const Cart = () => {
               </SummaryItem>
               <SummaryItem type='total'>
                 <SummaryItemText>Total</SummaryItemText>
-                <SummaryItemPrice>Q. {total - gastosEnvio}</SummaryItemPrice>
+                <SummaryItemPrice>Q. {total + gastosEnvio}</SummaryItemPrice>
               </SummaryItem>
 
               {isAuthenticated ? (
