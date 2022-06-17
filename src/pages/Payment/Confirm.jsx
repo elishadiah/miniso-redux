@@ -96,7 +96,10 @@ export const Confirm = (props) => {
         <li class='list-group-item'>
           Nombre del titular de la tarjeta: {cardname}
         </li>
-        <li class='list-group-item'>Numero de Tarjeta: {cardnumber}</li>
+        <li class='list-group-item'>
+          Numero de Tarjeta: ************
+          {cardnumber.slice(cardnumber.length - 4)}
+        </li>
         <li class='list-group-item'>Código de Seguridad (CVV): ***</li>
         <li class='list-group-item'>Fecha de Expiración: {date}</li>
         <li class='list-group-item'>
