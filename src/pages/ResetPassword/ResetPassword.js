@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import CheckButton from 'react-validation/build/button';
@@ -77,7 +77,7 @@ const ResetPassword = () => {
 
   useEffect(() => {
     if (!token) {
-      toast.error('Invalid token! Redirecting to home page in 5 sec', {
+      toast.error('Token inválido, te redireccionaremos a la página de inicio en 5 segundos', {
         autoClose: 3600,
       });
       setTimeout(() => {
