@@ -7,7 +7,7 @@ const StorePage = ({ noTitle = false }) => {
       title: "Guatemala",
       text1: "Pradera Concepción",
       //text2: "Ann Arbor, MI 48108",
-      timeText: "Abierto de 9:00 AM a 8:00 p.m",
+      timeText: "Abierto de 10:00 AM a 8:00 p.m",
       image:
         "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Pradera+Concepci%C3%B3n.jpg",
     },
@@ -16,7 +16,7 @@ const StorePage = ({ noTitle = false }) => {
       title: "Guatemala",
       text1: "Oakland Mall",
       // text2: "Belleve, WA 98004",
-      timeText: "Abierto de 9:00 AM a 8:00 p.m",
+      timeText: "Abierto de 10:00 AM a 8:00 p.m",
       image:
         "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Oakland+Mall.jpg",
     },
@@ -25,7 +25,7 @@ const StorePage = ({ noTitle = false }) => {
       title: "Quetzaltenango",
       text1: "Pradera Xela",
       //text2: "Nashua, NH 03060",
-      timeText: "Abierto de 9:00 AM a 8:00 p.m",
+      timeText: "Abierto de 10:00 AM a 8:00 p.m",
       image:
         "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Xela.jpg",
     },
@@ -34,7 +34,7 @@ const StorePage = ({ noTitle = false }) => {
       title: "Guatemala",
       text1: "Sankris Mall",
       //text2: "Ann Arbor, MI 48108",
-      timeText: "Abierto de 9:00 AM a 8:00 p.m",
+      timeText: "Abierto de 10:00 AM a 8:00 p.m",
       image:
         "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Sankris+Mall.jpg",
     },
@@ -43,7 +43,7 @@ const StorePage = ({ noTitle = false }) => {
       title: "Guatemala",
       text1: "Parque Las Américas",
       // text2: "Belleve, WA 98004",
-      timeText: "Abierto de 9:00 AM a 8:00 p.m",
+      timeText: "Abierto de 10:00 AM a 8:00 p.m",
       image:
         "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Parque+Las+Am%C3%A9ricas.jpg",
     },
@@ -52,7 +52,7 @@ const StorePage = ({ noTitle = false }) => {
       title: "Guatemala",
       text1: "Naranjo Mall",
       //text2: "Nashua, NH 03060",
-      timeText: "Abierto de 9:00 AM a 8:00 p.m",
+      timeText: "Abierto de 10:00 AM a 8:00 p.m",
       image:
         "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Naranjo+Mall.jpg",
     },
@@ -61,7 +61,7 @@ const StorePage = ({ noTitle = false }) => {
       title: "Chimaltenango",
       text1: "Pradera Chimaltenango",
       //text2: "Nashua, NH 03060",
-      timeText: "Abierto de 9:00 AM a 8:00 p.m",
+      timeText: "Abierto de 10:00 AM a 8:00 p.m",
       image:
         "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Chimaltenango.jpg",
     },
@@ -70,7 +70,7 @@ const StorePage = ({ noTitle = false }) => {
       title: "Guatemala",
       text1: "C.C. La Estación",
       //text2: "Nashua, NH 03060",
-      timeText: "Abierto de 9:00 AM a 8:00 p.m",
+      timeText: "Abierto de 10:00 AM a 8:00 p.m",
       image:
         "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+La+Estaci%C3%B3n.jpg",
     },
@@ -79,7 +79,7 @@ const StorePage = ({ noTitle = false }) => {
       title: "Guatemala",
       text1: "C.C. Miraflores",
       //text2: "Nashua, NH 03060",
-      timeText: "Abierto de 9:00 AM a 8:00 p.m",
+      timeText: "Abierto de 10:00 AM a 8:00 p.m",
       image:
         "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Miraflores.jpg",
     },
@@ -88,7 +88,7 @@ const StorePage = ({ noTitle = false }) => {
       title: "Guatemala",
       text1: "RUS Mall",
       //text2: "Nashua, NH 03060",
-      timeText: "Abierto de 9:00 AM a 8:00 p.m",
+      timeText: "Abierto de 10:00 AM a 8:00 p.m",
       image:
         "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Rus+Mall.jpg",
     },
@@ -97,7 +97,7 @@ const StorePage = ({ noTitle = false }) => {
       title: "Guatemala",
       text1: "SPAZIO",
       //text2: "Nashua, NH 03060",
-      timeText: "Abierto de 9:00 AM a 8:00 p.m",
+      timeText: "Abierto de 10:00 AM a 8:00 p.m",
       image:
         "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Spazio.jpg",
     },
@@ -106,7 +106,7 @@ const StorePage = ({ noTitle = false }) => {
       title: "Guatemala",
       text1: "C.C. Metrocentro",
       //text2: "Nashua, NH 03060",
-      timeText: "Abierto de 9:00 AM a 8:00 p.m",
+      timeText: "Abierto de 10:00 AM a 8:00 p.m",
       image:
         "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Metrocentro.jpg",
     },
@@ -115,7 +115,7 @@ const StorePage = ({ noTitle = false }) => {
       title: "Guatemala",
       text1: "Portales",
       //text2: "Nashua, NH 03060",
-      timeText: "Abierto de 9:00 AM a 8:00 p.m",
+      timeText: "Abierto de 10:00 AM a 8:00 p.m",
       image:
         "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Portales.jpg",
     },
@@ -124,7 +124,7 @@ const StorePage = ({ noTitle = false }) => {
       title: "Guatemala",
       text1: "Pradera zona 10",
       //text2: "Nashua, NH 03060",
-      timeText: "Abierto de 9:00 AM a 8:00 p.m",
+      timeText: "Abierto de 10:00 AM a 8:00 p.m",
       image:
         "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Pradera+Zona+10.jpg",
     },
@@ -133,7 +133,7 @@ const StorePage = ({ noTitle = false }) => {
       title: "Zacapa",
       text1: "Pradera Zacapa",
       //text2: "Nashua, NH 03060",
-      timeText: "Abierto de 9:00 AM a 8:00 p.m",
+      timeText: "Abierto de 10:00 AM a 8:00 p.m",
       image:
         "https://minisobbs.s3.us-east-2.amazonaws.com/Zoho-admin/Miniso+Zacapa.jpg",
     },
