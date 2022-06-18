@@ -1,15 +1,15 @@
-import { Container } from '@mui/material';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { Container } from "@mui/material";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   removeProductFromCart,
   updateCartFromServer,
-} from '../../redux/cartAction';
-import { categories } from './../../data';
-import './Cart.css';
-import classes from './Cart.module.css';
+} from "../../redux/cartAction";
+import { categories } from "./../../data";
+import "./Cart.css";
+import classes from "./Cart.module.css";
 import {
   BarraId,
   Bottom,
@@ -34,13 +34,13 @@ import {
   Title,
   Top,
   Wrapper,
-} from './Cart.styled';
+} from "./Cart.styled";
 const Cart = () => {
   const { total, gastosEnvio } = useSelector((state) => state.cart);
   const { isAuthenticated } = useSelector((state) => state.user);
   const cartProductsList = useSelector((state) => state.cart.products);
   const dispatch = useDispatch();
-  let username = localStorage.getItem('username');
+  let username = localStorage.getItem("username");
   if (!username) {
   }
 
@@ -78,7 +78,7 @@ const Cart = () => {
                 cartProductsList.map((product) => (
                   <Product id={product.id} key={Math.random()}>
                     <ProductDetail>
-                      <Image src={product.url + '-1.jpg'} />
+                      <Image src={product.url + "-1.jpg"} />
                       <Details>
                         <ProductName>
                           <b>Producto:</b>
@@ -96,7 +96,7 @@ const Cart = () => {
                     </ProductDetail>
                     <PriceDetail>
                       <p
-                        className='btn-floating btn-fb mx-1'
+                        className="btn-floating btn-fb mx-1"
                         onClick={(e) => {
                           e.preventDefault();
                           handleClick(
@@ -106,7 +106,7 @@ const Cart = () => {
                           );
                         }}
                       >
-                        <i className='fa-solid fa-trash TrashIcon'></i>
+                        <i className="fa-solid fa-trash TrashIcon"></i>
                       </p>
                       <ProductAmountContainer>
                         {/*<Add />*/}
@@ -131,27 +131,27 @@ const Cart = () => {
                 </SummaryItem>
                 <SummaryItem>
                   <SummaryItemText>gastosEnvio</SummaryItemText>
-                  <SummaryItemPrice>Q. {gastosEnvio}</SummaryItemPrice>
+                  <SummaryItemPrice>Q. 25</SummaryItemPrice>
                 </SummaryItem>
-                <SummaryItem type='total'>
+                <SummaryItem type="total">
                   <SummaryItemText>Total</SummaryItemText>
-                  <SummaryItemPrice>Q. {total + gastosEnvio}</SummaryItemPrice>
+                  <SummaryItemPrice>Q. {total + 25}</SummaryItemPrice>
                 </SummaryItem>
 
                 {isAuthenticated ? (
                   cartProductsList.length > 0 ? (
-                    <Link to='/payment' className={classes.link2}>
+                    <Link to="/payment" className={classes.link2}>
                       <button className={classes.bTnProperty}>
                         Comprar Ahora
                       </button>
                     </Link>
                   ) : (
                     <>
-                      <Link to='#' className={classes.link2}>
+                      <Link to="#" className={classes.link2}>
                         <button
                           className={classes.bTnProperty}
                           onClick={() => {
-                            toast.error('Cart is empty');
+                            toast.error("Cart is empty");
                           }}
                         >
                           Comprar Ahora
@@ -162,10 +162,10 @@ const Cart = () => {
                 ) : null}
               </>
               {isAuthenticated && (
-                <div className='row justify-content-center '>
-                  <div className='col-md-4 '>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                      <Link to='/profile' className={classes.link2}>
+                <div className="row justify-content-center ">
+                  <div className="col-md-4 ">
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                      <Link to="/profile" className={classes.link2}>
                         <button className={`${classes.bTnProperty} mt-5`}>
                           Gestiona tus direcciones
                         </button>
