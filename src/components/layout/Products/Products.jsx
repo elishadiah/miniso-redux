@@ -1,12 +1,12 @@
-import { Container, Pagination } from "@mui/material";
-import axios from "axios";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useHistory } from "react-router-dom";
-import styled from "styled-components";
-import getQueryParams from "../../../utilities/getGetQueryParams";
-import usePagination from "./Pagination";
+import { Container, Pagination } from '@mui/material';
+import axios from 'axios';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+import getQueryParams from '../../../utilities/getGetQueryParams';
+import usePagination from './Pagination';
 //import CustomPagination from "../Pagination/CustomPagination";
-import Product from "./Product";
+import Product from './Product';
 
 const Products = (props) => {
   const {
@@ -26,32 +26,30 @@ const Products = (props) => {
   const [count, setCount] = useState(0);
 
   const history = useHistory();
-  const pageNo = parseInt(getQueryParams("pageNo"));
+  const pageNo = parseInt(getQueryParams('pageNo'));
 
   useEffect(() => {
-    if (pageNo) {
-      setCurrentPage(pageNo);
-    }
+    setCurrentPage(pageNo ? pageNo : 1);
   }, [pageNo]);
 
   const getProducts = useCallback(async () => {
     const filterDataArray = Object.entries({
       ...filtersData,
-      category: cat === "all" ? false : cat,
+      category: cat === 'all' ? false : cat,
       size: 15,
     }).filter(([key, value]) => {
       return !!value;
     });
-    filterDataArray.push(["page", parseInt(currentPage) - 1]);
+    filterDataArray.push(['page', parseInt(currentPage) - 1]);
 
     const filterDataTo = filterDataArray
       .map(([key, value]) => `${key}=${value}`)
-      .join("&");
+      .join('&');
 
     const res = await axios.get(
       cat
         ? `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/products/?${filterDataTo}`
-        : "https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/products/?size=15&page=0&category=01",
+        : 'https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/products/?size=15&page=0&category=01',
       {
         crossDomain: true,
       }
@@ -93,7 +91,7 @@ const Products = (props) => {
   }, [products, cat, filters]);
 
   useEffect(() => {
-    if (sort === "asc") {
+    if (sort === 'asc') {
       setFilteredProducts((prev) => {
         const asc = prev.sort((a, b) => {
           if (a.precio > b.precio) return 1;
@@ -123,7 +121,7 @@ const Products = (props) => {
   }, [sort, products, filters]);
 
   const newProducts = useMemo(() => {
-    if (sort === "asc") {
+    if (sort === 'asc') {
       const asc = formateProducts.sort((a, b) => {
         if (a.precio > b.precio) return 1;
         if (a.precio < b.precio) return -1;
@@ -132,7 +130,7 @@ const Products = (props) => {
       return asc;
     }
 
-    if (sort === "desc") {
+    if (sort === 'desc') {
       const desc = formateProducts.sort((a, b) => {
         if (a.precio > b.precio) return -1;
         if (a.precio < b.precio) return 1;
@@ -162,14 +160,14 @@ const Products = (props) => {
         </div>
         {count > 0 && (
           <div
-            className="ImpaginAzione"
+            className='ImpaginAzione'
             style={{ marginTop: 50, marginBottom: 20 }}
           >
             <div
               style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
                 marginTop: 10,
               }}
             >
@@ -177,7 +175,7 @@ const Products = (props) => {
                 onChange={handlePageChange}
                 count={count}
                 page={currentPage}
-                size="large"
+                size='large'
               />
             </div>
           </div>
