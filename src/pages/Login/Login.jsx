@@ -55,13 +55,9 @@ const Login = () => {
           dispatch(loginSuccess(user));
           return;
         }
-        const resMessage =
-          result?.response?.data?.message ||
-          result?.message ||
-          result.toString();
 
         setLoading(false);
-        setMessage(resMessage);
+        setMessage('El usuario o contraseña no es correcto');
       });
     } else {
       setLoading(false);
