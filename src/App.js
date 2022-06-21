@@ -43,6 +43,8 @@ import ShopNow from './pages/ShopNow';
 import StorePage from './pages/Store/StorePage';
 import Stores from './pages/Stores';
 import TheNew from './pages/TheNew';
+import ProtectedRoutes from './routes/ProtectedRoutes';
+import AuthRoutes from './routes/AuthRoutes';
 
 const App = () => {
   // const [showModeratorBoard, setShowModeratorBoard] = useState(false);
@@ -87,9 +89,9 @@ const App = () => {
         <Route path='/contactanos'>
           <ContactUs />
         </Route>
-        <Route path='/profile'>
+        <ProtectedRoutes path='/profile'>
           <Profile />
-        </Route>
+        </ProtectedRoutes>
         <Route path='/comprar-ahora'>
           <ShopNow />
         </Route>
@@ -142,26 +144,26 @@ const App = () => {
         <Route path='/lo-más-nuevo'>
           <NewProductList />
         </Route>
-        <Route path='/cart'>
+        <ProtectedRoutes path='/cart'>
           <Cart />
-        </Route>
-        <Route path='/payment'>
+        </ProtectedRoutes>
+        <ProtectedRoutes path='/payment'>
           <Payment />
-        </Route>
-        <Route path='/login'>
+        </ProtectedRoutes>
+        <AuthRoutes path='/login'>
           <Login />
           {/*{user ? <Redirect to='/' /> : <Login />}*/}
-        </Route>
-        <Route path='/forgot-password'>
+        </AuthRoutes>
+        <AuthRoutes path='/forgot-password'>
           <ForgotPassword />
-        </Route>
-        <Route path='/reset-password'>
+        </AuthRoutes>
+        <AuthRoutes path='/reset-password'>
           <ResetPassword />
-        </Route>
-        <Route path='/register'>
+        </AuthRoutes>
+        <AuthRoutes path='/register'>
           <Register />
           {/*{user ? <Redirect to='/' /> : <Register />}*/}
-        </Route>
+        </AuthRoutes>
         <Route path='/store'>
           <StorePage />
           {/*{user ? <Redirect to='/' /> : <Register />}*/}

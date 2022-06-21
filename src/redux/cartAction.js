@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { addProduct, clear, removeProduct, updateCart } from './cartRedux';
+import axiosInstance from '../services/axiosInstance';
 const baseUrl = 'https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API';
 export const addProductToCart = (product, quantity, toast) => (dispatch) => {
   const { barra, codInt } = product.productosPkDto;
@@ -67,13 +68,10 @@ export const updateCartFromServer = (codInt, barra) => async (dispatch) => {
     const api = `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/private/cart/find?userName=${username}`;
     //   let api = `/api/private/cart/find?userName=${username}`;
 
-    axios
+    axiosInstance
       .get(api, {
         widthCredentials: true,
         crossdomain: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       })
       .then(async (res) => {
         const items = res?.data?.body?.itemsDtos;

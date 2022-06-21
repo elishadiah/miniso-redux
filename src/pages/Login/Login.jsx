@@ -1,5 +1,5 @@
 import jwtDecode from 'jwt-decode';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom'; // IF IS REACT-WEB
 import CheckButton from 'react-validation/build/button';
@@ -8,6 +8,8 @@ import Input from 'react-validation/build/input';
 import { loginSuccess } from '../../redux/userRedux';
 import AuthService from '../../services/auth.service';
 import './Login.css';
+import { getQueryParams } from '../../utilities/getGetQueryParams';
+import { toast } from 'react-toastify';
 
 const required = (value) => {
   if (!value) {
@@ -28,6 +30,15 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const dispatch = useDispatch();
+
+  const isError = getQueryParams('error');
+  const errorMessage = getQueryParams('message');
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(errorMessage || 'Error');
+    }
+  }, [isError, errorMessage]);
 
   const onChangeUsername = (e) => {
     const username = e.target.value;
