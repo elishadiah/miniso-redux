@@ -77,13 +77,37 @@ const ResetPassword = () => {
 
   useEffect(() => {
     if (!token) {
-      toast.error('Token inválido, te redireccionaremos a la página de inicio en 5 segundos', {
-        autoClose: 3600,
-      });
+      toast.error(
+        'Token inválido, te redireccionaremos a la página de inicio en 5 segundos',
+        {
+          autoClose: 3600,
+        }
+      );
       setTimeout(() => {
         history.push('/');
       }, 1000 * 5);
+      return;
     }
+
+    const url = `http://3.16.73.177:9080/oauth/check_token?token=${token}`;
+    axios
+      .get(url, {
+        auth: {
+          username: 'ReactMinisoApp',
+          password: 'R3@l1z3m1n1z0',
+        },
+      })
+      .catch((error) => {
+        toast.error(
+          'Token inválido, te redireccionaremos a la página de inicio en 5 segundos',
+          {
+            autoClose: 3600,
+          }
+        );
+        setTimeout(() => {
+          history.push('/');
+        }, 1000 * 5);
+      });
   });
 
   return (
