@@ -21,7 +21,7 @@ const Footer = () => {
   useEffect(() => fetchCategories(), [fetchCategories]);
 
   const formateCategories = useMemo(() => {
-    const categoryLength = categories.length;
+    const categoryLength = categories?.length;
     if (!categoryLength > 0) return [];
     const divider = 3;
     const divideValue = Math.ceil(categoryLength / divider);

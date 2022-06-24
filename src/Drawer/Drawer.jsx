@@ -21,19 +21,24 @@ const Drawer = () => {
   };
   const [categories, setCategories] = useState([]);
   const getCategories = useCallback(async () => {
-    let url =
-      'https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/categories/first';
-    const res = await axios.get(url, {
-      crossDomain: true,
-    });
-    const categoryData = res.data.body.sort(
-      ({ descripcion: a }, { descripcion: b }) => {
-        if (a > b) return 1;
-        if (a < b) return -1;
-        return 0;
-      }
-    );
-    setCategories(categoryData);
+    try {
+      let url =
+        'https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/categories/first';
+      const res = await axios.get(url, {
+        crossDomain: true,
+      });
+
+      const categoryData = res.data?.body?.sort(
+        ({ descripcion: a }, { descripcion: b }) => {
+          if (a > b) return 1;
+          if (a < b) return -1;
+          return 0;
+        }
+      );
+      setCategories(categoryData);
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
   useEffect(() => {
     getCategories();
@@ -101,7 +106,7 @@ const Drawer = () => {
       </Link>*/}
             <ListItem>
               <ListItemText>
-                {categories.map((cat) => (
+                {categories?.map((cat) => (
                   <Link
                     to={`/productoslista/${cat.codCatUno}`}
                     className={classes.link}
