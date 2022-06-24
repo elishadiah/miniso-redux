@@ -1,10 +1,12 @@
 import { Container } from '@mui/material';
 import axios from 'axios';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Products from '../../components/layout/Products/Products';
 import ProductsBanner from '../../components/layout/Products/ProductsBanner';
+import { stringCapitalize } from '../../utilities/string';
 import {
   Bottom,
   Contenitrice,
@@ -89,9 +91,14 @@ const ProductList = () => {
     const foundCategory = categories.find((c) => c.codCatUno === cat);
     return foundCategory?.descripcion;
   }, [cat, categories]);
+
   return (
     <>
       <ProductsBanner image={image} />
+      <Helmet>
+        <title>{stringCapitalize(currentCategory)} Products</title>
+        <meta name='description' content={`${currentCategory} Products`} />
+      </Helmet>
       <Container>
         <Contenitrice>
           <Wrapper>
@@ -116,7 +123,7 @@ const ProductList = () => {
                   <Option value={'all'} key={Math.random()}>
                     Todos
                   </Option>
-                  {categories.map((category) => (
+                  {categories?.map((category) => (
                     <Option value={category.codCatUno} key={category.codCatUno}>
                       {category.descripcion}
                     </Option>
@@ -137,7 +144,7 @@ const ProductList = () => {
                     }));
                   }}
                 >
-                  <Option value="">Todas</Option>
+                  <Option value=''>Todas</Option>
                   <Option value='marvel'>Marvel</Option>
                   <Option value='disney'>Disney</Option>
                 </Select1>
@@ -187,7 +194,7 @@ const ProductList = () => {
                 <h6>Buscador de Productos:</h6>
                 <PriceInput
                   type='text'
-                  placeholder="buscar..."
+                  placeholder='buscar...'
                   className='form-control'
                   value={filters.name}
                   onChange={(e) => {

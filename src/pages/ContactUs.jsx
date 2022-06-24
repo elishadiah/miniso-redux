@@ -1,12 +1,20 @@
-import Container from "@mui/material/Container";
-import React from "react";
-import ReactHelmet from "../components/Seo/ReactHelmet";
-import classes from "./ContactUs.module.css";
+import Container from '@mui/material/Container';
+import React from 'react';
+import { Helmet } from 'react-helmet';
+
+import classes from './ContactUs.module.css';
 
 const ContactUs = () => {
   return (
     <div>
-      <ReactHelmet title="Options" />
+      <Helmet>
+        <title>Contact Us</title>
+        <link rel='canonical' href='http://mysite.com/example' />
+        <meta
+          name='description'
+          content='Diagonal 6, 13-01 Zona 10 Centro Comercial Oakland Mall Local 201 y 202 Segundo Nivel Guatemala, Guatemala. +502 2336-5701 +502 3760-2892 hola@miniso.com.gt'
+        />
+      </Helmet>
 
       <Container fixed>
         <div className={classes.Wrapper}>

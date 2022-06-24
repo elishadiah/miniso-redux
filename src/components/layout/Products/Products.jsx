@@ -55,9 +55,9 @@ const Products = (props) => {
       }
     );
 
-    setProducts(res.data.content);
-    setTotalRows(res.data.totalElements);
-    setCount(res.data.totalPages);
+    setProducts(res.data?.content);
+    setTotalRows(res.data?.totalElements);
+    setCount(res.data?.totalPages);
   }, [cat, filtersData, currentPage]);
 
   useEffect(() => {
@@ -81,7 +81,7 @@ const Products = (props) => {
     try {
       cat &&
         setFormateProducts(
-          products.filter((item) =>
+          products?.filter((item) =>
             Object.entries(filters).every(([key, value]) =>
               item[key].includes(value)
             )
@@ -153,7 +153,7 @@ const Products = (props) => {
         )}
         <div>
           <Contenitrice>
-            {newProducts.map((item) => (
+            {newProducts?.map((item) => (
               <Product item={item} key={Math.random()} />
             ))}
           </Contenitrice>
