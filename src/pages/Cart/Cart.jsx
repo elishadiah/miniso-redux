@@ -37,7 +37,7 @@ import {
 } from './Cart.styled';
 import Coupon from './Coupon';
 const Cart = () => {
-  const { total, gastosEnvio } = useSelector((state) => state.cart);
+  const { total, gastosEnvio, discount } = useSelector((state) => state.cart);
   const { isAuthenticated } = useSelector((state) => state.user);
   const cartProductsList = useSelector((state) => state.cart.products);
   const dispatch = useDispatch();
@@ -134,9 +134,17 @@ const Cart = () => {
                   <SummaryItemText>gastosEnvio</SummaryItemText>
                   <SummaryItemPrice>Q. 25</SummaryItemPrice>
                 </SummaryItem>
+                {!!discount && (
+                  <SummaryItem>
+                    <SummaryItemText>Discount</SummaryItemText>
+                    <SummaryItemPrice> -{discount}</SummaryItemPrice>
+                  </SummaryItem>
+                )}
                 <SummaryItem type='total'>
                   <SummaryItemText>Total</SummaryItemText>
-                  <SummaryItemPrice>Q. {total + 25}</SummaryItemPrice>
+                  <SummaryItemPrice>
+                    Q. {total + 25 - discount}
+                  </SummaryItemPrice>
                 </SummaryItem>
 
                 {isAuthenticated ? (
