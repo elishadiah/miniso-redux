@@ -1,14 +1,14 @@
-import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
-import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
-import React, { useCallback, useEffect, useState } from "react";
-import styled from "styled-components";
-import { sliderItems } from "../../../data";
+import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import React, { useCallback, useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { sliderItems } from '../../../data';
 
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
   const handleClick = useCallback(
     (direction) => {
-      if (direction === "left") {
+      if (direction === 'left') {
         setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
       } else {
         setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
@@ -25,7 +25,7 @@ const Slider = () => {
 
   return (
     <Container>
-      <Arrow direction='left' onClick={() => handleClick("left")}>
+      <Arrow direction='left' onClick={() => handleClick('left')}>
         <ArrowBackIosRoundedIcon />
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
@@ -42,7 +42,7 @@ const Slider = () => {
           </Slide>
         ))}
       </Wrapper>
-      <Arrow direction='right' onClick={() => handleClick("right")}>
+      <Arrow direction='right' onClick={() => handleClick('right')}>
         <ArrowForwardIosRoundedIcon />
       </Arrow>
     </Container>
@@ -89,8 +89,8 @@ const Arrow = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
-  left: ${(props) => props.direction === "left" && "10px"};
-  right: ${(props) => props.direction === "right" && "10px"};
+  left: ${(props) => props.direction === 'left' && '10px'};
+  right: ${(props) => props.direction === 'right' && '10px'};
   margin: auto;
   cursor: pointer;
   z-index: 2;
@@ -148,6 +148,9 @@ const Image = styled.img`
   @media only screen and (max-width: 640px) {
     height: 30vh;
     width: 100%;
+  }
+  @media only screen and (max-width: 500px) {
+    object-fit: contain;
   }
 `;
 
