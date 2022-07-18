@@ -89,7 +89,8 @@ const ResetPassword = () => {
       return;
     }
 
-    const url = `http://3.16.73.177:9080/oauth/check_token?token=${token}`;
+    // need to change this api
+    const url = `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/oauth/check_token?token=${token}`;
     axios
       .get(url, {
         auth: {

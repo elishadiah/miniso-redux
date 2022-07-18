@@ -12,7 +12,7 @@ axiosInstance.interceptors.request.use(async (req) => {
   const token = localStorage.getItem('token');
   try {
     if (token) {
-      const url = `http://3.16.73.177:9080/oauth/check_token?token=${token}`;
+      const url = `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/oauth/check_token?token=${token}`;
       await axios.get(url, {
         auth: {
           username: 'ReactMinisoApp',

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { addProduct, clear, removeProduct, updateCart } from './cartRedux';
 import axiosInstance from '../services/axiosInstance';
+import { addProduct, clear, removeProduct, updateCart } from './cartRedux';
 const baseUrl = 'https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API';
 export const addProductToCart = (product, quantity, toast) => (dispatch) => {
   const { barra, codInt } = product.productosPkDto;
