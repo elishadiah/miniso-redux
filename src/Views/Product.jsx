@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import axiosInstance from '../services/axiosInstance';
 
 const Product = () => {
-  const url = "https://616d9c5fa83a850017caa62b.mockapi.io/api/v1/products/3";
+  const url = 'https://616d9c5fa83a850017caa62b.mockapi.io/api/v1/products/3';
   const [product, setProduct] = useState(null);
 
   let content = null;
 
   useEffect(() => {
-    axios.get(url).then((response) => {
+    axiosInstance.get(url).then((response) => {
       setProduct(response.data);
     });
   }, [url]);

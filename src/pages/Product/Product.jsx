@@ -1,7 +1,6 @@
 //import styled from "styled-components";
 import { Add, Remove } from '@mui/icons-material';
 import { Container } from '@mui/material';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +8,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ReactHelmet from '../../components/Seo/ReactHelmet';
 import { addProductToCart } from '../../redux/cartAction';
-import { stringCapitalize } from '../../utilities/string';
+import axiosInstance from '../../services/axiosInstance';
 import classes from './Product.module.css';
 //import sushi2 from "../../assets/card/sushi2.jpeg";
 //import sushi3 from "../../assets/card/sushi3.jpeg";
@@ -66,10 +65,8 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await axios.get(
-          pk && barra
-            ? `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/products/pk?codeInt=${pk}&barra=${barra}`
-            : ''
+        const res = await axiosInstance.get(
+          pk && barra ? `/public/products/pk?codeInt=${pk}&barra=${barra}` : ''
         );
 
         setProduct(res.data.body);

@@ -1,8 +1,8 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { clearCart } from '../../redux/cartAction';
+import axiosInstance from '../../services/axiosInstance';
 import './Confirm.css';
 import './Form.css';
 
@@ -55,7 +55,7 @@ export const Confirm = (props) => {
 
     var config = {
       method: 'post',
-      url: `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/private/cart/end?userName=${username}`,
+      url: `/private/cart/end?userName=${username}`,
       headers: { Authorization: `Bearer ${token}` },
       data: {
         nombre: cardname,
@@ -72,7 +72,7 @@ export const Confirm = (props) => {
 
     console.log(config);
     try {
-      const respuesta = await axios(config);
+      const respuesta = await axiosInstance(config);
 
       console.log(respuesta);
       if (respuesta.data && respuesta.data.ok) {

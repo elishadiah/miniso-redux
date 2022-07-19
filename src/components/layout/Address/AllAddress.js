@@ -1,8 +1,8 @@
-import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { FaPen, FaTrashAlt } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
+import axiosInstance from '../../../services/axiosInstance';
 import AddressForm from '../Profile/AddressForm';
 const AllAddress = () => {
   const [address, setAddress] = useState([]);
@@ -15,8 +15,8 @@ const AllAddress = () => {
     try {
       const username = localStorage.getItem('username');
 
-      const res = await axios.get(
-        `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/geo/direccion?userName=${username}`
+      const res = await axiosInstance.get(
+        `/public/geo/direccion?userName=${username}`
       );
       setAddress(res.data.body);
     } catch (error) {
@@ -31,8 +31,8 @@ const AllAddress = () => {
   const deleteAddressHandler = async (e, id) => {
     e.preventDefault();
     try {
-      const url = `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/geo/direccion?direccion=${id}`;
-      await axios.delete(url);
+      const url = `/public/geo/direccion?direccion=${id}`;
+      await axiosInstance.delete(url);
       toast.success('¡Dirección eliminada!');
       setAddress((prev) => prev.filter((item) => item.id !== id));
     } catch (error) {

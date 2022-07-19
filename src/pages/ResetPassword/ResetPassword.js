@@ -1,10 +1,10 @@
-import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import CheckButton from 'react-validation/build/button';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
+import axiosInstance from '../../services/axiosInstance';
 import getGetQueryParams from '../../utilities/getGetQueryParams';
 import './ResetPassword.css';
 
@@ -57,11 +57,11 @@ const ResetPassword = () => {
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
       try {
-        const url = `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/reset_password`;
+        const url = `/public/reset_password`;
         const formData = new FormData();
         formData.append('token', token);
         formData.append('password', password);
-        const res = await axios.post(url, formData);
+        const res = await axiosInstance.post(url, formData);
         setLoading(false);
         if (res.data.ok) {
           toast.success('¡Guardar contraseña!');
@@ -90,8 +90,8 @@ const ResetPassword = () => {
     }
 
     // need to change this api
-    const url = `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/oauth/check_token?token=${token}`;
-    axios
+    const url = `/oauth/check_token?token=${token}`;
+    axiosInstance
       .get(url, {
         auth: {
           username: 'ReactMinisoApp',

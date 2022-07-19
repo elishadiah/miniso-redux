@@ -1,13 +1,13 @@
 //import { multiData } from "../../../data";
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 import { Container } from '@mui/material';
-import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
+import axiosInstance from '../../../services/axiosInstance';
 import './MultiItemCarousel.css';
 import classes from './MultiItemCarousel.module.css';
 
@@ -41,12 +41,12 @@ const MultiItemCarousel = () => {
       const userName = localStorage.getItem('username');
       const getUrl = () => {
         if (isAuthenticated) {
-          return `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/products/carrusel?carrusel=CARRUSEL1&userName=${userName}`;
+          return `/public/products/carrusel?carrusel=CARRUSEL1&userName=${userName}`;
         }
-        return 'https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/products/carrusel?carrusel=CARRUSEL1';
+        return '/public/products/carrusel?carrusel=CARRUSEL1';
       };
       let url = getUrl();
-      const res = await axios.get(url, {
+      const res = await axiosInstance.get(url, {
         crossDomain: true,
       });
       setSlides(res.data.body);

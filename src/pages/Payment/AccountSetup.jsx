@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import './Form.css';
-//import axios from "axios";
 
 const installMents = [
   {

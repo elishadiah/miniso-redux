@@ -1,7 +1,5 @@
-import axios from "axios";
-import $ from "jquery";
-
-const API_URL = `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API`;
+import $ from 'jquery';
+import axiosInstance from './axiosInstance';
 
 const register = (
   userName,
@@ -14,7 +12,7 @@ const register = (
   phone,
   address
 ) => {
-  return axios.post(API_URL + "/public/users/register", {
+  return axiosInstance.post('/public/users/register', {
     // username,
     // email,|
     // password,
@@ -32,24 +30,24 @@ const register = (
 
 const login = async (username, password, cb) => {
   try {
-    const grant_type = "password";
-    localStorage.setItem("username", username);
+    const grant_type = 'password';
+    localStorage.setItem('username', username);
 
     const config = {
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        "Access-Control-Allow-Credentials":"true",
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Access-Control-Allow-Credentials': 'true',
       },
       auth: {
-        username: "ReactMinisoApp",
-        password: "R3@l1z3m1n1z0",
+        username: 'ReactMinisoApp',
+        password: 'R3@l1z3m1n1z0',
       },
       withCredentials: true,
       crossDomain: true,
     };
 
-    const response = await axios.post(
-      API_URL + "/oauth/token",
+    const response = await axiosInstance.post(
+      '/oauth/token',
       //   "/api/oauth/token",
       $.param({
         username,
@@ -59,8 +57,8 @@ const login = async (username, password, cb) => {
       config
     );
     if (response.data.access_token) {
-      localStorage.setItem("user", JSON.stringify(response.data));
-      localStorage.setItem("token", response.data.access_token);
+      localStorage.setItem('user', JSON.stringify(response.data));
+      localStorage.setItem('token', response.data.access_token);
     }
     cb(true, response.data);
   } catch (error) {
@@ -69,17 +67,17 @@ const login = async (username, password, cb) => {
 };
 
 const logout = () => {
-  localStorage.removeItem("username");
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
+  localStorage.removeItem('username');
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
 };
 
 const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem("user"));
+  return JSON.parse(localStorage.getItem('user'));
 };
 
 const getCurrentUsername = () => {
-  return localStorage.getItem("username");
+  return localStorage.getItem('username');
 };
 const data = { register, login, logout, getCurrentUser, getCurrentUsername };
 export default data;

@@ -1,12 +1,13 @@
+import Container from '@mui/material/Container';
 import React, { useCallback, useEffect, useState } from 'react';
-import { useLocation } from "react-router";
-import styled from "styled-components";
-import classes from "./ShopNow.module.css";
-import axios from "axios";
+import { useLocation } from 'react-router';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+import Products from '../components/layout/Products/Products';
 import ReactHelmet from '../components/Seo/ReactHelmet';
-import Products from "../components/layout/Products/Products";
-import Container from "@mui/material/Container";
-import { useHistory } from "react-router-dom";
+import axiosInstance from '../services/axiosInstance';
+
+import classes from './ShopNow.module.css';
 
 const Wrapper = styled.div`
   padding: 20px;
@@ -76,9 +77,9 @@ const Option = styled.option``;
 
 const ShopNow = () => {
   const location = useLocation();
-  const cat = location.pathname.split("/")[2];
+  const cat = location.pathname.split('/')[2];
   const [filters, setFilters] = useState({});
-  const [sort, setSort] = useState("newest");
+  const [sort, setSort] = useState('newest');
   let history = useHistory();
 
   const handleFilters = async (event) => {
@@ -87,7 +88,7 @@ const ShopNow = () => {
       history.push(`/productoslista/${value}`);
       history.go(`/productoslista/${value}`);
     } catch (err) {
-      console.log("- - - - - err: ", err);
+      console.log('- - - - - err: ', err);
     }
     /*
       setFilters({
@@ -100,7 +101,7 @@ const ShopNow = () => {
   const [categories, setCategories] = useState([]);
   const getCategories = useCallback(async () => {
     let catUrl = '/api/public/categories/first';
-    const res = await axios.get(catUrl, {
+    const res = await axiosInstance.get(catUrl, {
       crossDomain: true,
     });
     setCategories(res.data.body);
@@ -146,7 +147,7 @@ const ShopNow = () => {
             <h1>Filtros</h1>
             <FilterContainer>
               <Select value={cat} name='categoría' onChange={handleFilters}>
-                {" "}
+                {' '}
                 {categories.map((category) => (
                   <Option value={category.codCatUno}>
                     {category.descripcion}
@@ -164,7 +165,7 @@ const ShopNow = () => {
             </FilterContainer>
           </Summary>
           <Info>
-            <Products cat={"04"} filters={filters} sort={sort} />
+            <Products cat={'04'} filters={filters} sort={sort} />
           </Info>
         </Bottom>
       </Wrapper>

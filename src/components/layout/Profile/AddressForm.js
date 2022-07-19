@@ -1,7 +1,7 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
+import axiosInstance from '../../../services/axiosInstance';
 
 const AddressForm = ({ setFromShow, isEdit, selectedId, fetchAllAddress }) => {
   const [departamentos, setDepartamentos] = useState([]);
@@ -19,10 +19,8 @@ const AddressForm = ({ setFromShow, isEdit, selectedId, fetchAllAddress }) => {
     if (isEdit && selectedId) {
       const username = 'kev45';
       // const username = localStorage.getItem('token');
-      axios
-        .get(
-          `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/geo/direccion?userName=${username}`
-        )
+      axiosInstance
+        .get(`/public/geo/direccion?userName=${username}`)
         .then((res) => {
           const matchedAddress = res.data.body?.find(
             (address) => address.id === selectedId
@@ -45,8 +43,8 @@ const AddressForm = ({ setFromShow, isEdit, selectedId, fetchAllAddress }) => {
   }, [isEdit, selectedId]);
 
   useEffect(() => {
-    axios
-    .get("https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/geo/departamento")
+    axiosInstance
+      .get('/public/geo/departamento')
       .then((res) => {
         setDepartamentos(res.data.body);
         if (!isEdit) {
@@ -61,10 +59,8 @@ const AddressForm = ({ setFromShow, isEdit, selectedId, fetchAllAddress }) => {
 
   useEffect(() => {
     if (!departamento) return;
-    axios
-      .get(
-        `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/geo/municipio?departamento=${departamento}`
-      )
+    axiosInstance
+      .get(`/public/geo/municipio?departamento=${departamento}`)
       .then((res) => {
         if (!isEdit) {
           setMunicipio(res.data?.body?.[0]?.id);
@@ -80,8 +76,8 @@ const AddressForm = ({ setFromShow, isEdit, selectedId, fetchAllAddress }) => {
 
   useEffect(() => {
     if (!municipio) return;
-    axios
-    .get(`https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/geo/poblado?municipio=${municipio}`)
+    axiosInstance
+      .get(`/public/geo/poblado?municipio=${municipio}`)
       .then((res) => {
         if (!isEdit) {
           setPoblado(res.data?.body?.[0]?.id);
@@ -109,8 +105,8 @@ const AddressForm = ({ setFromShow, isEdit, selectedId, fetchAllAddress }) => {
 
     if (isEdit) {
       try {
-        const url = `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/geo/direccion?userName=${username}&direccion=${selectedId}`;
-        await axios.put(url, data);
+        const url = `/public/geo/direccion?userName=${username}&direccion=${selectedId}`;
+        await axiosInstance.put(url, data);
 
         setFromShow(false);
         toast.success('Address updated');
@@ -126,8 +122,8 @@ const AddressForm = ({ setFromShow, isEdit, selectedId, fetchAllAddress }) => {
     }
 
     try {
-      const url = `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/geo/direccion?userName=${username}`;
-      await axios.post(url, data);
+      const url = `/public/geo/direccion?userName=${username}`;
+      await axiosInstance.post(url, data);
       setFromShow(false);
       toast.success('Address added');
       fetchAllAddress();
@@ -231,7 +227,7 @@ const AddressForm = ({ setFromShow, isEdit, selectedId, fetchAllAddress }) => {
             />
           </div>
           <div>
-            <Button type="submit">Guardar</Button>
+            <Button type='submit'>Guardar</Button>
             <Button2 type='button' onClick={() => setFromShow(false)}>
               Cancel
             </Button2>

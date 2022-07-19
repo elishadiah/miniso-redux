@@ -1,11 +1,11 @@
 import { Container } from '@mui/material';
-import axios from 'axios';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Products from '../../components/layout/Products/Products';
 import ProductsBanner from '../../components/layout/Products/ProductsBanner';
+import axiosInstance from '../../services/axiosInstance';
 import { stringCapitalize } from '../../utilities/string';
 import {
   Bottom,
@@ -63,9 +63,8 @@ const ProductList = () => {
   const [categories, setCategories] = useState([]);
 
   const getCategories = useCallback(async () => {
-    const catUrl =
-      'https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/categories/first';
-    const res = await axios.get(catUrl, {
+    const catUrl = '/public/categories/first';
+    const res = await axiosInstance.get(catUrl, {
       crossDomain: true,
     });
     // console.log('TTT', res.data.body);

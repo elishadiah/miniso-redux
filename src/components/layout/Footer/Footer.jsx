@@ -1,7 +1,8 @@
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axiosInstance from '../../../services/axiosInstance';
+
 //import { Link } from "react-router-dom";
 import './Footer.css';
 
@@ -9,10 +10,8 @@ const Footer = () => {
   const [categories, setCategories] = useState([]);
 
   const fetchCategories = useCallback(() => {
-    axios
-      .get(
-        'https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/categories/first'
-      )
+    axiosInstance
+      .get('/public/categories/first')
       .then((res) => {
         setCategories(res.data.body);
       })

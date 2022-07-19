@@ -5,8 +5,8 @@ import ListItem from '@mui/material/ListItem';
 //import Divider from "@mui/material/Divider";
 import ListItemText from '@mui/material/ListItemText';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
+import axiosInstance from '../services/axiosInstance';
 //import styled from "styled-components";
 import { Link } from 'react-router-dom';
 //import { useHistory } from "react-router";
@@ -22,9 +22,8 @@ const Drawer = () => {
   const [categories, setCategories] = useState([]);
   const getCategories = useCallback(async () => {
     try {
-      let url =
-        'https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/categories/first';
-      const res = await axios.get(url, {
+      let url = '/public/categories/first';
+      const res = await axiosInstance.get(url, {
         crossDomain: true,
       });
 

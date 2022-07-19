@@ -1,8 +1,8 @@
 import { Container, Pagination } from '@mui/material';
-import axios from 'axios';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import axiosInstance from '../../../services/axiosInstance';
 import getQueryParams from '../../../utilities/getGetQueryParams';
 import usePagination from './Pagination';
 //import CustomPagination from "../Pagination/CustomPagination";
@@ -46,10 +46,10 @@ const Products = (props) => {
       .map(([key, value]) => `${key}=${value}`)
       .join('&');
 
-    const res = await axios.get(
+    const res = await axiosInstance.get(
       cat
-        ? `https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/products/?${filterDataTo}`
-        : 'https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API/public/products/?size=15&page=0&category=01',
+        ? `/public/products/?${filterDataTo}`
+        : '/public/products/?size=15&page=0&category=01',
       {
         crossDomain: true,
       }
