@@ -63,7 +63,11 @@ const cartSlice = createSlice({
     },
 
     updateCart: (state, action, ...rest) => {
-      const { allProducts: products, gastosEnvio } = action.payload;
+      const {
+        allProducts: products,
+        gastosEnvio,
+        granTotalDiscount,
+      } = action.payload;
       console.log(rest);
       state.products = products;
       state.gastosEnvio = gastosEnvio;
@@ -79,6 +83,7 @@ const cartSlice = createSlice({
         .reduce((acc, curr) => acc + curr, 0);
       state.quantity = quantity;
       state.total = total;
+      state.discount = granTotalDiscount;
     },
     clear: (state, action) => {
       state.products = [];

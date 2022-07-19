@@ -73,6 +73,7 @@ export const updateCartFromServer = (codInt, barra) => async (dispatch) => {
         crossdomain: true,
       })
       .then(async (res) => {
+        const granTotalDiscount = res.data?.body?.granTotalDiscount || 0;
         const items = res?.data?.body?.itemsDtos;
         const gastosEnvio = res.data?.body?.gastosEnvio;
         if (!items || !items.length > 0) return;
@@ -91,7 +92,7 @@ export const updateCartFromServer = (codInt, barra) => async (dispatch) => {
           item.data.body.amount = item.amount;
           return item.data.body;
         });
-        dispatch(updateCart({ allProducts, gastosEnvio }));
+        dispatch(updateCart({ allProducts, gastosEnvio, granTotalDiscount }));
       });
   } catch (error) {
     console.log('err-----', error);
