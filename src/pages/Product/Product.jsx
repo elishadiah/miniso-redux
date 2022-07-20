@@ -108,6 +108,19 @@ const Product = () => {
 
   let history = useHistory();
 
+  const ProductPrice = () => {
+    if (product.precio === product.precioDiscount)
+      return <p>Q.{product.precio}</p>;
+    return (
+      <p>
+        Q.{product.precioDiscount}{' '}
+        <span style={{ textDecoration: 'line-through', fontSize: '20px' }}>
+          Q.{product.precio}
+        </span>{' '}
+      </p>
+    );
+  };
+
   return (
     <Container>
       <ReactHelmet
@@ -135,7 +148,9 @@ const Product = () => {
               {/*<span className={classes.PriceD}>Q{product.precio}</span>*/}
             </div>
             <hr style={{ color: '#999999', height: '1px' }} />
-            <span className={classes.Price}>Q {product.precio}</span>
+            <span className={classes.Price}>
+              <ProductPrice />
+            </span>
             <hr style={{ color: '#999999', height: '1px' }} />
             <span className={classes.Title}> {productosPkDto.barra}</span>
             {/*<p>{item.content}</p>*/}

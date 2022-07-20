@@ -143,6 +143,9 @@ const Products = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formateProducts, sort, pageNo]);
 
+  
+
+
   return (
     <div>
       <Container>

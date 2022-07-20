@@ -1,16 +1,16 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import styled from "styled-components";
-import { addProductToCart } from "../../../redux/cartAction";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import styled from 'styled-components';
+import { addProductToCart } from '../../../redux/cartAction';
 const Product = ({ item }) => {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.user);
 
   const addProduct = () => {
     if (!isAuthenticated) {
-      toast.error("Para realizar una compra, Inicia Sesión primero");
+      toast.error('Para realizar una compra, Inicia Sesión primero');
       return;
     }
     dispatch(addProductToCart(item, 1, toast));
@@ -18,17 +18,31 @@ const Product = ({ item }) => {
 
   const imagen = item.url
     ? item.url
-    : "../../img/products/4509757451814-2.jpeg";
+    : '../../img/products/4509757451814-2.jpeg';
+
+  const ProductPrice = () => {
+    if (item.precio === item.precioDiscount) return <p>Q.{item.precio}</p>;
+    return (
+      <p>
+        Q.{item.precioDiscount}{' '}
+        <span style={{ textDecoration: 'line-through', fontSize: '20px' }}>
+          Q.{item.precio}
+        </span>{' '}
+      </p>
+    );
+  };
 
   return (
     <Contenitrice>
       <Link
         to={`/product/${item.productosPkDto.codInt}/${item.productosPkDto.barra}`}
       >
-        <Image src={imagen + "-1.jpg"} />
+        <Image src={imagen + '-1.jpg'} />
       </Link>
       <Title>{item.descripcion}</Title>
-      <Price>Q.{item.precio}</Price>
+      <Price>
+        <ProductPrice />
+      </Price>
 
       <Button onClick={addProduct}>Agregar a carrito</Button>
 
