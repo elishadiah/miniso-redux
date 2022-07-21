@@ -1,6 +1,53 @@
 import axiosInstance from '../services/axiosInstance';
 import { addProduct, clear, removeProduct, updateCart } from './cartRedux';
 
+export const updateCartFromServer = () => async (dispatch) => {
+  try {
+    let username = localStorage.getItem('username');
+
+    const api = `/private/cart/find?userName=${username}`;
+    //   let api = `/api/private/cart/find?userName=${username}`;
+
+    axiosInstance
+      .get(api, {
+        widthCredentials: true,
+        crossdomain: true,
+      })
+      .then(async (res) => {
+        const granTotalDiscount = res.data?.body?.granTotalDiscount || 0;
+        const granTotal = res.data?.body?.granTotal || 0;
+        const items = res?.data?.body?.itemsDtos;
+        const gastosEnvio = res.data?.body?.gastosEnvio;
+        if (!items || !items.length > 0) return;
+
+        const dataListPromise = items?.map(
+          async ({ codeInt, codeBarrra, amount }) => {
+            const resData = await axiosInstance.get(
+              `/public/products/pk?codeInt=${codeInt}&barra=${codeBarrra}`
+            );
+            resData.amount = amount;
+            return resData;
+          }
+        );
+        const dataWithResponse = await Promise.all(dataListPromise);
+        const allProducts = dataWithResponse?.map((item) => {
+          item.data.body.amount = item.amount;
+          return item.data.body;
+        });
+
+        dispatch(
+          updateCart({
+            allProducts,
+            gastosEnvio,
+            discount: granTotalDiscount - granTotal,
+          })
+        );
+      });
+  } catch (error) {
+    console.log('err-----', error);
+  }
+};
+
 export const addProductToCart = (product, quantity, toast) => (dispatch) => {
   const { barra, codInt } = product.productosPkDto;
   let username = localStorage.getItem('username');
@@ -25,6 +72,7 @@ export const addProductToCart = (product, quantity, toast) => (dispatch) => {
   })
     .then(() => {
       dispatch(addProduct({ ...product, amount: quantity }));
+      dispatch(updateCartFromServer(updateCartFromServer));
       toast.success('¡Producto agregado correctamente!');
     })
     .catch((error) => {
@@ -60,44 +108,6 @@ export const removeProductFromCart = (codInt, barra) => (dispatch) => {
     });
 };
 
-export const updateCartFromServer = (codInt, barra) => async (dispatch) => {
-  try {
-    let username = localStorage.getItem('username');
-    let token = JSON.parse(localStorage.getItem('user'))?.access_token;
-    const api = `/private/cart/find?userName=${username}`;
-    //   let api = `/api/private/cart/find?userName=${username}`;
-
-    axiosInstance
-      .get(api, {
-        widthCredentials: true,
-        crossdomain: true,
-      })
-      .then(async (res) => {
-        const granTotalDiscount = res.data?.body?.granTotalDiscount || 0;
-        const items = res?.data?.body?.itemsDtos;
-        const gastosEnvio = res.data?.body?.gastosEnvio;
-        if (!items || !items.length > 0) return;
-
-        const dataListPromise = items?.map(
-          async ({ codeInt, codeBarrra, amount }) => {
-            const resData = await axiosInstance.get(
-              `/public/products/pk?codeInt=${codeInt}&barra=${codeBarrra}`
-            );
-            resData.amount = amount;
-            return resData;
-          }
-        );
-        const dataWithResponse = await Promise.all(dataListPromise);
-        const allProducts = dataWithResponse?.map((item) => {
-          item.data.body.amount = item.amount;
-          return item.data.body;
-        });
-        dispatch(updateCart({ allProducts, gastosEnvio, granTotalDiscount }));
-      });
-  } catch (error) {
-    console.log('err-----', error);
-  }
-};
 export const clearCart = () => async (dispatch) => {
   dispatch(clear());
 };
