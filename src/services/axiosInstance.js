@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const token = localStorage.getItem('token');
-const baseURL = 'https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API';
+const baseURL = 'http://3.16.73.177:9080';
+// const baseURL = 'https://2leucj6c3a.execute-api.us-east-2.amazonaws.com/API';
 const axiosInstance = axios.create({
   baseURL,
   headers: {

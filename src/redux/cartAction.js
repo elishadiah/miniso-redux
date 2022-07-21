@@ -72,7 +72,7 @@ export const addProductToCart = (product, quantity, toast) => (dispatch) => {
   })
     .then(() => {
       dispatch(addProduct({ ...product, amount: quantity }));
-      dispatch(updateCartFromServer(updateCartFromServer));
+      dispatch(updateCartFromServer());
       toast.success('¡Producto agregado correctamente!');
     })
     .catch((error) => {
@@ -102,7 +102,10 @@ export const removeProductFromCart = (codInt, barra) => (dispatch) => {
     },
     data: reqData,
   })
-    .then(() => dispatch(removeProduct({ codInt, barra })))
+    .then(() => {
+      dispatch(removeProduct({ codInt, barra }));
+      dispatch(updateCartFromServer());
+    })
     .catch((error) => {
       console.log(error?.response);
     });

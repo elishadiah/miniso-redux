@@ -128,11 +128,15 @@ const Cart = () => {
                 <SummaryTitle>RESUMEN DE PEDIDO</SummaryTitle>
                 <SummaryItem>
                   <SummaryItemText>Subtotal</SummaryItemText>
-                  <SummaryItemPrice>Q. {total}</SummaryItemPrice>
+                  <SummaryItemPrice>
+                    {cartProductsList.length > 0 ? `Q. ${total}` : 0}
+                  </SummaryItemPrice>
                 </SummaryItem>
                 <SummaryItem>
                   <SummaryItemText>gastosEnvio</SummaryItemText>
-                  <SummaryItemPrice>Q. 25</SummaryItemPrice>
+                  <SummaryItemPrice>
+                    {cartProductsList.length > 0 ? `Q. ${gastosEnvio}` : 0}
+                  </SummaryItemPrice>
                 </SummaryItem>
                 {!!discount && (
                   <SummaryItem>
@@ -143,7 +147,9 @@ const Cart = () => {
                 <SummaryItem type='total'>
                   <SummaryItemText>Total</SummaryItemText>
                   <SummaryItemPrice>
-                    Q. {total + 25 - discount}
+                    {cartProductsList.length > 0
+                      ? `Q. ${total + 25 - discount}`
+                      : 0}
                   </SummaryItemPrice>
                 </SummaryItem>
 
