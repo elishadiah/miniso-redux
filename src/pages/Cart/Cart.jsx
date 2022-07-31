@@ -141,14 +141,17 @@ const Cart = () => {
                 {!!discount && (
                   <SummaryItem>
                     <SummaryItemText>Discount</SummaryItemText>
-                    <SummaryItemPrice> -{discount}</SummaryItemPrice>
+                    <SummaryItemPrice>
+                      {' '}
+                      -{parseFloat(discount)?.toFixed(2)}
+                    </SummaryItemPrice>
                   </SummaryItem>
                 )}
                 <SummaryItem type='total'>
                   <SummaryItemText>Total</SummaryItemText>
                   <SummaryItemPrice>
                     {cartProductsList.length > 0
-                      ? `Q. ${total + 25 - discount}`
+                      ? `Q. ${parseFloat(total + 25 - discount).toFixed(2)}`
                       : 0}
                   </SummaryItemPrice>
                 </SummaryItem>
