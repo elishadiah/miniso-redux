@@ -58,6 +58,10 @@ const MultiItemCarousel = () => {
     getSlides();
   }, [getSlides]);
 
+  useEffect(() => {
+    getSlides();
+  }, []);
+
   const settings = {
     prevArrow: <PreviousBtn />,
     nextArrow: <NextBtn />,
