@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // toast
 import { ToastContainer } from 'react-toastify';
@@ -49,6 +49,18 @@ import AuthRoutes from './routes/AuthRoutes';
 const App = () => {
   // const [showModeratorBoard, setShowModeratorBoard] = useState(false);
   // const [showAdminBoard, setShowAdminBoard] = useState(false);
+
+  const clearCacheData = () => {
+    caches.keys().then((names) => {
+      names.forEach((name) => {
+        caches.delete(name)
+      })
+    })
+  }
+
+  useEffect(() => {
+    clearCacheData()
+  }, [])
 
   return (
     <Router>
