@@ -58,6 +58,7 @@ export const SelectAddress = (props) => {
           );
         })}
       </ul>
+      {addresses.length === 0 && <h2>No address found</h2>}
       <br />
 
       <div className='row justify-content-sm-between'>
